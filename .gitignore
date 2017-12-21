@@ -1,0 +1,5 @@
+obj/
+*.o
+.cache_exists
+ft_nm
+ft_otool
