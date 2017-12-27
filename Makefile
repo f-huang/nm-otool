@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2017/12/21 10:09:45 by fhuang           ###   ########.fr        #
+#    Updated: 2017/12/27 13:02:14 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,11 @@ WHITE		= "\033[0;37m"
 # ======= nm =========
 NMSRCDIR	:=	$(SRCDIR)nm/
 NMOBJDIR	:=	$(OBJDIR)nm/
-NMSRC		:=	main.c
+NMSRC		:=	main.c			\
+				clear.c			\
+				get_symbols.c	\
+				set_files.c		\
+				set_options.c
 NMOBJ		:=	$(NMSRC:%.c=$(NMOBJDIR)%.o)
 # ====================
 
@@ -62,10 +66,11 @@ OTOOLOBJ	:=	$(OTOOLSRC:%.c=$(OTOOLOBJDIR)%.o)
 
 .PHONY: all libft norme clean fclean re nm otool
 
-all: $(NAME)
+all: libft $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
 	@$(CC) $(CFLAGS) -c  $< -o $@ $(INC)
+	@printf $(GREEN)"•"$(EOC)
 
 $(CACHEF):
 	@test -d $(OBJDIR) || mkdir $(OBJDIR)
@@ -77,14 +82,15 @@ $(CACHEF):
 	@echo $(RED)"Missing file : $@"$(EOC)
 
 $(NAME1): $(NMOBJ)
-	@make -C $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(NMOBJ) -o $(NAME1) $(LIBPATH) $(INC)
-	@echo $(GREEN)"$(NAME1) ✓"$(EOC)
+	@echo $(GREEN)"\t✓"$(EOC)
 
 $(NAME2):  $(OTOOLOBJ)
-	@make -C $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(OTOOLOBJ) -o $(NAME2) $(LIBPATH) $(INC)
-	@echo $(GREEN)"$(NAME2) ✓"$(EOC)
+	@echo $(GREEN)"\t✓"$(EOC)
+
+libft:
+	@make -C $(LIBFT)
 
 norme:
 	@norminette $(SRCDIR) $(INCDIR) | grep -v Norme -B1 || true
