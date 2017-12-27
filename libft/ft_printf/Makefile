@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/11 11:38:13 by fhuang            #+#    #+#              #
-#    Updated: 2017/11/04 14:50:23 by fhuang           ###   ########.fr        #
+#    Updated: 2017/12/21 11:46:40 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,27 +70,26 @@ EXEC			:= $(addprefix $(LIBDIR), $(NAME))
 CACHEF			:=	.cache_exists
 
 .PHONY: clean fclean re all
-.SILENT:
 
 all : $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\033[32m" "-> ft_printf" "\033[0m"
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
-	$(CC) $(CFLAGS) -c  $< -o $@ $(INC)
+	@$(CC) $(CFLAGS) -c  $< -o $@ $(INC)
 
 $(CACHEF):
-	test -d $(OBJDIR) || mkdir $(OBJDIR)
-	test -d $(LIBDIR) || mkdir $(LIBDIR)
-	test -d $(CACHEF) || touch $(CACHEF)
+	@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	@test -d $(LIBDIR) || mkdir $(LIBDIR)
+	@test -d $(CACHEF) || touch $(CACHEF)
 
 clean:
-	rm -rf $(OBJDIR) $(CACHEF)
+	@rm -rf $(OBJDIR) $(CACHEF)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all

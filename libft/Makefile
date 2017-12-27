@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 16:52:41 by fhuang            #+#    #+#              #
-#    Updated: 2017/11/07 21:24:55 by fhuang           ###   ########.fr        #
+#    Updated: 2017/12/27 11:26:22 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -157,32 +157,31 @@ EXEC			:= $(addprefix $(LIBDIR), $(NAME))
 CACHEF			:=	.cache_exists
 
 .PHONY: clean fclean re all ft_printf
-.SILENT:
 
 all: ft_printf $(NAME)
 
 $(NAME): $(OBJ)
-	echo "\033[32m" "-> libft" "\033[0m"
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@echo "\033[32m" "-> libft" "\033[0m"
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
-	$(CC) $(CFLAGS) -c  $< -o $@ $(INC)
+	@$(CC) $(CFLAGS) -c  $< -o $@ $(INC)
 
 $(CACHEF):
-	test -d $(OBJDIR) || mkdir $(OBJDIR)
-	test -d $(LIBDIR) || mkdir $(LIBDIR)
-	test -d $(CACHEF) || touch $(CACHEF)
+	@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	@test -d $(LIBDIR) || mkdir $(LIBDIR)
+	@test -d $(CACHEF) || touch $(CACHEF)
 
 ft_printf:
-	make -C $(PRINTFDIR)
+	@make -C $(PRINTFDIR)
 
 clean:
-	rm -rf $(OBJDIR) $(CACHEF)
-	make clean -C $(PRINTFDIR)
+	@rm -rf $(OBJDIR) $(CACHEF)
+	@make clean -C $(PRINTFDIR)
 
 fclean: clean
-	rm -f $(NAME)
-	make fclean -C $(PRINTFDIR)
+	@rm -f $(NAME)
+	@make fclean -C $(PRINTFDIR)
 
 re: fclean all
