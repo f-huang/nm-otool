@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2017/12/27 13:02:14 by fhuang           ###   ########.fr        #
+#    Updated: 2017/12/29 17:59:06 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,10 +49,11 @@ WHITE		= "\033[0;37m"
 # ======= nm =========
 NMSRCDIR	:=	$(SRCDIR)nm/
 NMOBJDIR	:=	$(OBJDIR)nm/
-NMSRC		:=	main.c			\
-				clear.c			\
-				get_symbols.c	\
-				set_files.c		\
+NMSRC		:=	main.c				\
+				clear.c				\
+				handle_64_bits.c	\
+				name_list.c			\
+				set_files.c			\
 				set_options.c
 NMOBJ		:=	$(NMSRC:%.c=$(NMOBJDIR)%.o)
 # ====================
@@ -69,7 +70,7 @@ OTOOLOBJ	:=	$(OTOOLSRC:%.c=$(OTOOLOBJDIR)%.o)
 all: libft $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
-	@$(CC) $(CFLAGS) -c  $< -o $@ $(INC)
+	@$(CC) -c  $< -o $@ $(INC)
 	@printf $(GREEN)"•"$(EOC)
 
 $(CACHEF):

@@ -6,12 +6,42 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/27 13:03:45 by fhuang           ###   ########.fr       */
+/*   Updated: 2017/12/29 18:27:10 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_NM_H
 # define FT_NM_H
+
+# include <stdint.h>
+
+/*
+**	DESCRIPTION
+**		If an argument is an  archive,
+**			a listing for each object file in the archive will be produced.
+**		Unless the -m option is  specified, each symbol name is preceded by
+**			its value (blanks if undefined).
+**		Symbol type:
+**			U = undefined
+**			A = absolute
+**			T = text section symbol
+**			D = data section symbol
+**			B = bss section symbol
+**			C = common symbol
+**			I = indirect symbol
+**			- = debugger symbol table entries
+**			S = symbol in a section other than those above
+**		If the symbol is local (non-external), the symbol's  type
+**		is  instead  represented  by  the corresponding lowercase letter.
+**		A lower case u in a dynamic shared library indicates a undefined
+**		reference to a private external in another module in the same  library.
+**		If the symbol is a Objective C method, the symbol name is
+**			+-[Class_name(category_name) method:name:],      where
+**				`+' is for class methods,
+**				`-' is for instance methods,
+**				(category_name) is present only when the method is in a category
+**		The output is sorted alphabetically by default.
+*/
 
 # define PROGRAM_NAME "nm"
 # define DEFAULT_FILE "a.out"
@@ -48,6 +78,13 @@
 # define OPTION_T  (1 << 6)
 # define OPTION_H  (1 << 7)
 
+struct				s_symbol
+{
+	char			*name;
+	char			type;
+	uint64_t		value;
+}					t_symbol;
+
 struct				s_nm_options
 {
 	const char	c;
@@ -56,13 +93,16 @@ struct				s_nm_options
 
 typedef struct		s_nm
 {
-	int		options;
-	char	**files;
+	int			options;
+	char		**files;
 }					t_nm;
 
-int					get_symbols(t_nm *nm);
+int					name_list(t_nm *nm);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
 void				clear(t_nm *nm);
+
+
+void				handle_64_bits(t_nm *nm, void *ptr);
 
 #endif

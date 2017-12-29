@@ -6,12 +6,20 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/21 09:48:53 by fhuang           ###   ########.fr       */
+/*   Updated: 2017/12/29 18:01:51 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+static void	local()
+{
+
+}
+
 int		main(int ac, char **av)
 {
+	int		i;
+
+	local();
 	(void)ac;
 	(void)av;
 	return (0);
