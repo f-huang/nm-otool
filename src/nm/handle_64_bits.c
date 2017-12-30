@@ -6,34 +6,43 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/29 19:27:42 by fhuang           ###   ########.fr       */
+/*   Updated: 2017/12/30 19:38:41 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mach-o/loader.h>
 #include <mach-o/nlist.h>
 #include "libft.h"
 #include "ft_nm.h"
 
-#define SYMBOL_TYPE (type & N_TYPE)
-#define SYMBOL_SCOPE (type & N_EXT)
+#define SYMBOL_TYPE (nlist.n_type & N_TYPE)
 
-static char	get_symbol_type(uint8_t type, uint8_t n_sect)
+static char	get_symbol_type(t_section *sections, struct nlist_64 nlist, void *ptr)
 {
-	if (SYMBOL_TYPE == N_UNDF)
-		return (SYMBOL_SCOPE ? 'U' : 'u');
-	else if (SYMBOL_TYPE == N_ABS)
-		return (SYMBOL_SCOPE ? 'A' : 'a');
+	char	ret;
+
+	if (SYMBOL_TYPE == N_ABS)
+		ret = 'A';
 	else if (SYMBOL_TYPE == N_INDR)
-		return (SYMBOL_SCOPE ? 'I' : 'i');
+		ret = 'I';
+	else if (SYMBOL_TYPE == N_UNDF && nlist.n_type & N_EXT && nlist.n_value != 0)
+		ret = 'C';
+	else if (SYMBOL_TYPE == N_UNDF || SYMBOL_TYPE == N_PBUD)
+		ret = 'U';
 	else if (SYMBOL_TYPE == N_SECT)
-		return (get_symbol_type(n_sect, 0));
+	{
+		if (!(ret = section_get_type(sections, nlist.n_sect)))
+			ret = 'S';
+	}
 	else
-		return (SYMBOL_SCOPE ? 'S' : 's');
+		ret = 'S';
+	if (nlist.n_type & N_PEXT || !(nlist.n_type & N_EXT))
+		ret = ft_tolower(ret);
+	return (ret);
 }
 
-static void	get_symbols(struct symtab_command *sym, void *ptr)
+static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr)
 {
+	t_symbol				*new;
 	int32_t					j;
 	char					*stringtable;
 	struct nlist_64			*nlist;
@@ -41,14 +50,18 @@ static void	get_symbols(struct symtab_command *sym, void *ptr)
 	nlist = (void*)ptr + sym->symoff;
 	stringtable = (void*)ptr + sym->stroff;
 	j = sym->nsyms - 1;
-	ft_printf("NO_SECT = %u\n", NO_SECT);
 	while (j >= 0 && !ft_isstrempty(stringtable + nlist[j].n_un.n_strx))
 	{
-		// ft_printf("%lx\n", nlist[j].n_value);
-		ft_printf("%u, %u, %u\t", nlist[j].n_type, nlist[j].n_sect, nlist[j].n_desc);
-		ft_putchar(get_symbol_type(nlist[j].n_type, nlist[j].n_sect));
-		ft_putchar('\t');
-		ft_putendl(stringtable + nlist[j].n_un.n_strx);
+		if ((new = (t_symbol*)ft_memalloc(sizeof(t_symbol))))
+		{
+			new->type = get_symbol_type(nm->sections, nlist[j], ptr);
+			new->value = nlist[j].n_value;
+			new->name = ft_strdup(stringtable + nlist[j].n_un.n_strx);
+			if (!new->name)
+				ft_memdel((void**)&new);
+			symbol_add(&nm->symbols, new, symbol_cmp_name);
+			// ft_printf("%u -> %c\t%s\n", nlist[j].n_sect, new->type, new->name);
+		}
 		--j;
 	}
 }
@@ -59,25 +72,20 @@ void	handle_64_bits(t_nm *nm, void *ptr)
 	struct load_command		*lc;
 	struct symtab_command	*sym;
 	uint32_t				i;
-	uint32_t				ncmds;
 
 	header = (struct mach_header_64*)ptr;
-	// ft_printf("filetype: %p\n", header->filetype);
-	ncmds = header->ncmds;
-	lc = ptr + sizeof(*header);
+	sym = NULL;
+	lc = ptr + sizeof(struct mach_header_64);
 	i = 0;
-	while (i < ncmds)
+	while (i < header->ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
-		{
 			sym = (struct symtab_command *)lc;
-			ft_printf("nb symboles: %d\n", sym->nsyms);
-			get_symbols(sym, ptr);
-			break ;
-		}
+		else if (lc->cmd == LC_SEGMENT_64)
+			section_add(nm->sections, (struct segment_command_64 *)lc);
 		lc = (void*)lc + lc->cmdsize;
 		++i;
 	}
-	(void)nm;
-
+	if (sym)
+		get_symbols(nm, sym, ptr);
 }

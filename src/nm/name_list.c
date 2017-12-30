@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/29 16:37:41 by fhuang           ###   ########.fr       */
+/*   Updated: 2017/12/30 19:40:02 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	handle_filetype(t_nm *nm, void *ptr, const char *file)
 	int			swap;
 
 	magic_number = *((int*)ptr);
-	// ft_printf("magic: %p\n", magic_number);
 	swap = (magic_number == MH_CIGAM_64 || magic_number == MH_CIGAM || magic_number == FAT_CIGAM);
 	if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
 	{
@@ -87,10 +86,13 @@ int			name_list(t_nm *nm)
 			if (ft_tablen(nm->files) > 1)
 				ft_printf("%s:\n", nm->files[i]);
 			handle_filetype(nm, ptr, nm->files[i]);
+			print_symbol_table(nm->symbols);
 			if (ptr)
 				munmap(ptr, buf.st_size);
 			if (fd != -1)
 				close(fd);
+			ft_bzero(nm->sections, N_SECTION * sizeof(t_section));
+			symbol_clear(&nm->symbols);
 		}
 	}
 	return (1);

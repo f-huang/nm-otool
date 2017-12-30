@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2017/12/29 17:59:06 by fhuang           ###   ########.fr        #
+#    Updated: 2017/12/30 19:23:12 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,14 +47,27 @@ WHITE		= "\033[0;37m"
 # ====================
 
 # ======= nm =========
+
 NMSRCDIR	:=	$(SRCDIR)nm/
 NMOBJDIR	:=	$(OBJDIR)nm/
-NMSRC		:=	main.c				\
-				clear.c				\
-				handle_64_bits.c	\
-				name_list.c			\
-				set_files.c			\
-				set_options.c
+
+##### === Subdirectories ===
+SECTIONDIR	:=	section/
+SYMBOLDIR	:=	symbol/
+##### ======================
+
+NMSRC		:=	main.c					\
+				clear.c					\
+				handle_64_bits.c		\
+				name_list.c				\
+				print_symbol_table.c	\
+				set_files.c				\
+				set_options.c			\
+				$(SECTIONDIR)add.c		\
+				$(SECTIONDIR)get_type.c	\
+				$(SYMBOLDIR)add.c		\
+				$(SYMBOLDIR)clear.c		\
+				$(SYMBOLDIR)cmp_name.c
 NMOBJ		:=	$(NMSRC:%.c=$(NMOBJDIR)%.o)
 # ====================
 
@@ -76,6 +89,8 @@ $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
 $(CACHEF):
 	@test -d $(OBJDIR) || mkdir $(OBJDIR)
 	@test -d $(NMOBJDIR) || mkdir $(NMOBJDIR)
+	@test -d $(NMOBJDIR)$(SECTIONDIR) || mkdir $(NMOBJDIR)$(SECTIONDIR)
+	@test -d $(NMOBJDIR)$(SYMBOLDIR) || mkdir $(NMOBJDIR)$(SYMBOLDIR)
 	@test -d $(OTOOLOBJDIR) || mkdir $(OTOOLOBJDIR)
 	@test -d $(CACHEF) || touch $(CACHEF)
 

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/29 18:27:10 by fhuang           ###   ########.fr       */
+/*   Updated: 2017/12/30 19:22:58 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_NM_H
 
 # include <stdint.h>
+# include <mach-o/loader.h>
 
 /*
 **	DESCRIPTION
@@ -78,31 +79,55 @@
 # define OPTION_T  (1 << 6)
 # define OPTION_H  (1 << 7)
 
-struct				s_symbol
+# define N_SECTION 3
+
+enum e_isegments
 {
-	char			*name;
-	char			type;
-	uint64_t		value;
+	TEXT = 0,
+	DATA,
+	BSS
+};
+
+typedef struct		s_symbol
+{
+	char				*name;
+	char				type;
+	uint64_t			value;
+	struct s_symbol		*next;
 }					t_symbol;
+
+typedef struct		s_section
+{
+	uint8_t				index;
+	char				type;
+}					t_section;
 
 struct				s_nm_options
 {
-	const char	c;
-	int			shift;
+	const char			c;
+	int					shift;
 };
 
 typedef struct		s_nm
 {
-	int			options;
-	char		**files;
+	int					options;
+	char				**files;
+	t_section			sections[N_SECTION];
+	t_symbol			*symbols;
 }					t_nm;
 
 int					name_list(t_nm *nm);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
 void				clear(t_nm *nm);
-
+void				print_symbol_table(t_symbol *symbols);
 
 void				handle_64_bits(t_nm *nm, void *ptr);
+
+void				section_add(t_section *sections, struct segment_command_64 *seg);
+char				section_get_type(t_section *sections, uint8_t index);
+void				symbol_add(t_symbol **symbols, t_symbol *new, int (*cmp)(t_symbol, t_symbol));
+void				symbol_clear(t_symbol **symbols);
+int					symbol_cmp_name(t_symbol sym1, t_symbol sym2);
 
 #endif

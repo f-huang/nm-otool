@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/30 19:41:17 by fhuang           ###   ########.fr       */
+/*   Created: 2017/12/30 19:05:49 by fhuang            #+#    #+#             */
+/*   Updated: 2017/12/30 19:40:49 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 #include "ft_nm.h"
 
-int		main(int ac, char **av)
+void	symbol_clear(t_symbol **symbols)
 {
-	t_nm	nm;
-	int		i;
+	t_symbol	*iterator;
+	t_symbol	*tmp;
 
-	i = 0;
-	ft_bzero(&nm, sizeof(t_nm));
-	if (!set_options(av, &nm, &i))
-		return (EXIT_FAILURE);
-	if (!set_files(av, &nm, ac, i))
-		return (EXIT_FAILURE);
-	name_list(&nm);
-	clear(&nm);
-	return (EXIT_SUCCESS);
+	tmp = NULL;
+	iterator = *symbols;
+	while (iterator)
+	{
+		tmp = iterator;
+		iterator = iterator->next;
+		ft_strdel(&tmp->name);
+		ft_memdel((void**)&tmp);
+	}
+	*symbols = NULL;
 }
