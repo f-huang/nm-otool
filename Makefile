@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/01/18 18:50:49 by fhuang           ###   ########.fr        #
+#    Updated: 2018/01/18 20:07:36 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ OTOOLOBJ	:=	$(OTOOLSRC:%.c=$(OTOOLOBJDIR)%.o)
 
 all: libft $(NAME)
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
+$(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF) $(INCDIR)ft_nm.h $(INCDIR)ft_otool.h
 	@$(CC) -c  $< -o $@ $(INC)
 	@printf $(GREEN)"•"$(EOC)
 
