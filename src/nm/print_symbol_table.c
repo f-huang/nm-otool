@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 19:20:57 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/30 19:30:40 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 17:10:18 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	print_symbol_table(t_symbol *symbols)
 	while (iterator)
 	{
 		if (iterator->type != 'U' && iterator->type != 'u')
-			ft_printf("%015lx\t%c %s\n",\
+			ft_printf("%016lx %c %s\n",\
 				iterator->value,
 				iterator->type,
 				iterator->name
 			);
 		else
-			ft_printf("% 14c\t%c %s\n",\
+			ft_printf("% 16c %c %s\n",\
 				' ',
 				iterator->type,
 				iterator->name

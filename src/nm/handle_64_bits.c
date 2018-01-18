@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/30 19:38:41 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 16:58:05 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr)
 			if (!new->name)
 				ft_memdel((void**)&new);
 			symbol_add(&nm->symbols, new, symbol_cmp_name);
-			// ft_printf("%u -> %c\t%s\n", nlist[j].n_sect, new->type, new->name);
 		}
 		--j;
 	}

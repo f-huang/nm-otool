@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 16:29:44 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/30 19:38:38 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 17:06:38 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@ static char	get_section_type(const char *sectname)
 void		section_add(t_section sections[N_SECTION], struct segment_command_64 *seg)
 {
 	char				type;
-	uint32_t			i;
-	uint32_t			j;
 	struct section_64	*sec;
+	uint32_t			j;
+	uint32_t			k;
+	static uint32_t		i = 0;
 
-	i = 0;
 	j = sections[0].type ? 0 : 1;
 	j += sections[1].type ? 1 : 0;
 	sec = (void*)(seg + 1);
-	while (i < seg->nsects && j < N_SECTION)
+	k = -1;
+	while (++k < seg->nsects && j < N_SECTION)
 	{
 		if ((type = get_section_type(sec->sectname)))
 		{
