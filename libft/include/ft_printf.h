@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/02 23:13:27 by fhuang            #+#    #+#             */
-/*   Updated: 2017/11/02 19:03:24 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 17:57:41 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <inttypes.h>
 
 # include "libft.h"
+
+# define HEX_NUMBERS "0123456789abcdef"
 
 # define TYPES_PAT "sSpdDiboOuUxXcC"
 # define FLAGS_PAT "#0-+ "

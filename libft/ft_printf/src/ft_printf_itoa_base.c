@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/29 15:16:47 by fhuang            #+#    #+#             */
-/*   Updated: 2017/11/02 19:04:04 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 17:58:34 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	count_n(unsigned int n, int base)
 
 char		*ft_printf_itoa_base(int n, int base, int is_uin)
 {
-	const char			pattern[17] = "0123456789abcdef";
+	const char			pattern[] = HEX_NUMBERS;
 	char				*ret;
 	unsigned int		uin;
 	int					len;
