@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/01/18 18:16:24 by fhuang           ###   ########.fr        #
+#    Updated: 2018/01/18 18:50:49 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ NMSRC		:=	main.c					\
 				clear.c					\
 				get_cmp_function.c		\
 				handle_64_bits.c		\
+				is_symbol_skipped.c		\
 				name_list.c				\
 				print_symbol_table.c	\
 				set_files.c				\

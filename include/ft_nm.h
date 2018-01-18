@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 18:24:44 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 18:52:35 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,13 @@ int					name_list(t_nm *nm);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
 void				clear(t_nm *nm);
-void				print_symbol_table(t_symbol *symbols);
+void				print_symbol_table(t_symbol *symbols, int options);
 
 void				handle_64_bits(t_nm *nm, void *ptr);
 
 void				section_add(t_section *sections, struct segment_command_64 *seg);
 char				section_get_type(t_section *sections, uint8_t index);
+int					is_symbol_skipped(int options, char type);
 void				symbol_add(t_symbol **symbols, t_symbol *new, int (*cmp)(t_symbol, t_symbol));
 void				symbol_clear(t_symbol **symbols);
 

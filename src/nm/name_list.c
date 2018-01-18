@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 17:08:33 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 18:52:24 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			name_list(t_nm *nm)
 			if (ft_tablen(nm->files) > 1)
 				ft_printf("%s:\n", nm->files[i]);
 			handle_filetype(nm, ptr, nm->files[i]);
-			print_symbol_table(nm->symbols);
+			print_symbol_table(nm->symbols, nm->options);
 			if (ptr)
 				munmap(ptr, buf.st_size);
 			if (fd != -1)

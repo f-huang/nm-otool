@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 18:31:56 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 18:51:21 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr)
 {
 	t_symbol				*new;
 	int32_t					j;
+	char					type;
 	char					*stringtable;
 	struct nlist_64			*nlist;
 
@@ -52,9 +53,10 @@ static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr)
 	j = sym->nsyms - 1;
 	while (j >= 0 && !ft_isstrempty(stringtable + nlist[j].n_un.n_strx))
 	{
-		if ((new = (t_symbol*)ft_memalloc(sizeof(t_symbol))))
+		type = get_symbol_type(nm->sections, nlist[j], ptr);
+		if (!is_symbol_skipped(nm->options, type) && (new = (t_symbol*)ft_memalloc(sizeof(t_symbol))))
 		{
-			new->type = get_symbol_type(nm->sections, nlist[j], ptr);
+			new->type = type;
 			new->value = nlist[j].n_value;
 			new->name = ft_strdup(stringtable + nlist[j].n_un.n_strx);
 			if (!new->name)
