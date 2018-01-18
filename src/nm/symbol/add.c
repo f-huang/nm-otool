@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:58:23 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/30 19:20:14 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 18:00:47 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	symbol_add(t_symbol **symbols, t_symbol *new, int (*cmp)(t_symbol, t_symbol
 	iterator = *symbols;
 	while (iterator)
 	{
-		if (cmp(*new, *iterator) < 0)
+		if (cmp(*new, *iterator) <= 0)
 			break ;
 		prev = iterator;
 		iterator = iterator->next;
