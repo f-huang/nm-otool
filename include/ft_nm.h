@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/30 19:22:58 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 18:24:44 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct		s_nm
 	t_symbol			*symbols;
 }					t_nm;
 
+
 int					name_list(t_nm *nm);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
@@ -128,6 +129,13 @@ void				section_add(t_section *sections, struct segment_command_64 *seg);
 char				section_get_type(t_section *sections, uint8_t index);
 void				symbol_add(t_symbol **symbols, t_symbol *new, int (*cmp)(t_symbol, t_symbol));
 void				symbol_clear(t_symbol **symbols);
+
+// int ((*cmp))(t_symbol, t_symbol)	get_cmp_function(int options);
+int (*get_cmp_function(int options))(t_symbol, t_symbol);
+// int (*cmp())	get_cmp_function(int options)
 int					symbol_cmp_name(t_symbol sym1, t_symbol sym2);
+int					symbol_cmp_value(t_symbol sym1, t_symbol sym2);
+int					symbol_cmp_r_name(t_symbol sym1, t_symbol sym2);
+int					symbol_cmp_r_value(t_symbol sym1, t_symbol sym2);
 
 #endif
