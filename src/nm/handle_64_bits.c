@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 18:51:21 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 19:07:37 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	handle_64_bits(t_nm *nm, void *ptr)
 		if (lc->cmd == LC_SYMTAB)
 			sym = (struct symtab_command *)lc;
 		else if (lc->cmd == LC_SEGMENT_64)
-			section_add(nm->sections, (struct segment_command_64 *)lc);
+			section_add(nm->sections, &nm->section_ordinal, (struct segment_command_64 *)lc);
 		lc = (void*)lc + lc->cmdsize;
 		++i;
 	}

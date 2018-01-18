@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 16:29:44 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 17:06:38 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 19:08:04 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ static char	get_section_type(const char *sectname)
 		return ('\0');
 }
 
-void		section_add(t_section sections[N_SECTION], struct segment_command_64 *seg)
+void		section_add(t_section sections[N_SECTION], uint8_t *section_ordinal, struct segment_command_64 *seg)
 {
 	char				type;
 	struct section_64	*sec;
 	uint32_t			j;
 	uint32_t			k;
-	static uint32_t		i = 0;
 
 	j = sections[0].type ? 0 : 1;
 	j += sections[1].type ? 1 : 0;
@@ -43,11 +42,11 @@ void		section_add(t_section sections[N_SECTION], struct segment_command_64 *seg)
 		if ((type = get_section_type(sec->sectname)))
 		{
 			sections[j++] = (t_section) {
-				.index = i + 1,
+				.index = *section_ordinal + 1,
 				.type = type
 			};
 		}
 		sec += 1;
-		++i;
+		++(*section_ordinal);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 18:52:35 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 20:25:53 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@
 
 /*
 **	OPTIONS
-**		 -n     Sort numerically rather than alphabetically.
-**		 -r     Sort in reverse order.
-**		 -u     Display only undefined symbols.
-**		 -U     Don't display undefined symbols.
+**		 -n     Sort numerically rather than alphabetically.				√
+**		 -r     Sort in reverse order.										√
+**		 -u     Display only undefined symbols.								√
+**		 -U     Don't display undefined symbols.							√
 **		 -x     Display the symbol table entry's fields in hexadecimal,
 **		                   along with the name as a string.
-**		 -j     Just display the symbol names (no value or type).
+**		 -j     Just display the symbol names (no value or type).			√
 **		 -t     format
 **		            d      The value shall be written in decimal (default).
 **		            o      The value shall be written in octal.
@@ -112,6 +112,7 @@ typedef struct		s_nm
 {
 	int					options;
 	char				**files;
+	uint8_t				section_ordinal;
 	t_section			sections[N_SECTION];
 	t_symbol			*symbols;
 }					t_nm;
@@ -125,15 +126,13 @@ void				print_symbol_table(t_symbol *symbols, int options);
 
 void				handle_64_bits(t_nm *nm, void *ptr);
 
-void				section_add(t_section *sections, struct segment_command_64 *seg);
+void				section_add(t_section *sections, uint8_t *section_ordinal, struct segment_command_64 *seg);
 char				section_get_type(t_section *sections, uint8_t index);
 int					is_symbol_skipped(int options, char type);
 void				symbol_add(t_symbol **symbols, t_symbol *new, int (*cmp)(t_symbol, t_symbol));
 void				symbol_clear(t_symbol **symbols);
 
-// int ((*cmp))(t_symbol, t_symbol)	get_cmp_function(int options);
-int (*get_cmp_function(int options))(t_symbol, t_symbol);
-// int (*cmp())	get_cmp_function(int options)
+int 				(*get_cmp_function(int options))(t_symbol, t_symbol);
 int					symbol_cmp_name(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_value(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_r_name(t_symbol sym1, t_symbol sym2);

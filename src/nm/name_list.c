@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 18:52:24 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/18 19:07:20 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,17 @@ int			name_list(t_nm *nm)
 	void		*ptr;
 
 	i = -1;
-	ft_bzero(&buf, sizeof(struct stat));
 	ptr = NULL;
 	while (nm->files[++i])
 	{
+		ft_bzero(&buf, sizeof(struct stat));
 		if ((fd = open(nm->files[i], O_RDONLY)) < 0 || fstat(fd, &buf) < 0\
 			|| (ptr = mmap(NULL, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 			handle_error(nm->files[i], buf, fd, ptr);
 		else
 		{
 			if (ft_tablen(nm->files) > 1)
-				ft_printf("%s:\n", nm->files[i]);
+				ft_printf("\n%s:\n", nm->files[i]);
 			handle_filetype(nm, ptr, nm->files[i]);
 			print_symbol_table(nm->symbols, nm->options);
 			if (ptr)
@@ -91,6 +91,7 @@ int			name_list(t_nm *nm)
 			if (fd != -1)
 				close(fd);
 			ft_bzero(nm->sections, N_SECTION * sizeof(t_section));
+			nm->section_ordinal = 0;
 			symbol_clear(&nm->symbols);
 		}
 	}
