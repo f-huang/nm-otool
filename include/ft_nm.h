@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 20:25:53 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/19 14:00:43 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@
 **		Unless the -m option is  specified, each symbol name is preceded by
 **			its value (blanks if undefined).
 **		Symbol type:
-**			U = undefined
-**			A = absolute
-**			T = text section symbol
-**			D = data section symbol
-**			B = bss section symbol
-**			C = common symbol
-**			I = indirect symbol
+**			U = undefined										√
+**			A = absolute										√
+**			T = text section symbol								√
+**			D = data section symbol								√
+**			B = bss section symbol								√
+**			C = common symbol									√
+**			I = indirect symbol									√
 **			- = debugger symbol table entries
-**			S = symbol in a section other than those above
+**			S = symbol in a section other than those above		√
 **		If the symbol is local (non-external), the symbol's  type
 **		is  instead  represented  by  the corresponding lowercase letter.
 **		A lower case u in a dynamic shared library indicates a undefined
@@ -56,19 +56,14 @@
 **		 -x     Display the symbol table entry's fields in hexadecimal,
 **		                   along with the name as a string.
 **		 -j     Just display the symbol names (no value or type).			√
-**		 -t     format
-**		            d      The value shall be written in decimal (default).
+**		 -t     format														√
+**		            d      The value shall be written in decimal.
 **		            o      The value shall be written in octal.
-**		            x      The value shall be written in hexadecimal.
+**		            x      The value shall be written in hexadecimal (default).
 */
 
-# define ERROR_OPTION_UNDEFINED 10
-# define ERROR_OPTION_DUPLICATE 11
-
-# define OUTPUT_ERROR_OPTION_UNDEFINED "Unknow command line argument '%s'. Try: nm -h"
-# define OUTPUT_ERROR_OPTION_DUPLICATE "for the -%c option: may only occur zero or one times!"
-
 # define NM_OPTIONS "nruUxjth"
+# define NM_OPTION_FORMATS "dox"
 
 # define OPTION_N  (1 << 0)
 # define OPTION_R  (1 << 1)
@@ -81,11 +76,11 @@
 
 # define N_SECTION 3
 
-enum e_isegments
+enum e_nm_format
 {
-	TEXT = 0,
-	DATA,
-	BSS
+	DECIMAL = 10,
+	OCTAL = 8,
+	HEXA = 16
 };
 
 typedef struct		s_symbol
@@ -108,10 +103,18 @@ struct				s_nm_options
 	int					shift;
 };
 
+struct				s_nm_print
+{
+	enum e_nm_format	format;
+	const char			*str1;
+	const char			*str2;
+};
+
 typedef struct		s_nm
 {
 	int					options;
 	char				**files;
+	enum e_nm_format	format;
 	uint8_t				section_ordinal;
 	t_section			sections[N_SECTION];
 	t_symbol			*symbols;
@@ -122,7 +125,7 @@ int					name_list(t_nm *nm);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
 void				clear(t_nm *nm);
-void				print_symbol_table(t_symbol *symbols, int options);
+void				print_symbol_table(t_symbol *symbols, enum e_nm_format format, int options);
 
 void				handle_64_bits(t_nm *nm, void *ptr);
 
