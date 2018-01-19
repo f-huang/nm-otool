@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/01/18 20:07:36 by fhuang           ###   ########.fr        #
+#    Updated: 2018/01/19 14:13:59 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,13 +59,16 @@ SYMBOLDIR	:=	symbol/
 NMSRC		:=	main.c					\
 				clear.c					\
 				get_cmp_function.c		\
+				handle_32_bits.c		\
 				handle_64_bits.c		\
 				is_symbol_skipped.c		\
 				name_list.c				\
 				print_symbol_table.c	\
 				set_files.c				\
 				set_options.c			\
-				$(SECTIONDIR)add.c		\
+				$(SECTIONDIR)add_32.c	\
+				$(SECTIONDIR)add_64.c	\
+				$(SECTIONDIR)add_determine_type.c		\
 				$(SECTIONDIR)get_type.c	\
 				$(SYMBOLDIR)add.c		\
 				$(SYMBOLDIR)clear.c		\

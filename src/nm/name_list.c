@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 13:59:20 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/19 14:09:15 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	handle_filetype(t_nm *nm, void *ptr, const char *file)
 	}
 	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)
 	{
+		handle_32_bits(nm, ptr);
 		ft_putendl("32 bits");
 	}
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)

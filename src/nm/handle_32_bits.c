@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_64_bits.c                                   :+:      :+:    :+:   */
+/*   handle_32_bits.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 14:14:27 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/19 14:14:21 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #define SYMBOL_TYPE (nlist.n_type & N_TYPE)
 
-static char	get_symbol_type(t_section *sections, struct nlist_64 nlist)
+static char	get_symbol_type(t_section *sections, struct nlist nlist)
 {
 	char	ret;
 
@@ -46,7 +46,7 @@ static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr)
 	int32_t					j;
 	char					type;
 	char					*stringtable;
-	struct nlist_64			*nlist;
+	struct nlist			*nlist;
 
 	nlist = (void*)ptr + sym->symoff;
 	stringtable = (void*)ptr + sym->stroff;
@@ -68,24 +68,24 @@ static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr)
 	}
 }
 
-void		handle_64_bits(t_nm *nm, void *ptr)
+void		handle_32_bits(t_nm *nm, void *ptr)
 {
-	struct mach_header_64	*header;
+	struct mach_header	*header;
 	struct load_command		*lc;
 	struct symtab_command	*sym;
 	uint32_t				i;
 
-	header = (struct mach_header_64*)ptr;
+	header = (struct mach_header*)ptr;
 	sym = NULL;
-	lc = ptr + sizeof(struct mach_header_64);
+	lc = ptr + sizeof(struct mach_header);
 	i = 0;
 	while (i < header->ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
 			sym = (struct symtab_command *)lc;
-		else if (lc->cmd == LC_SEGMENT_64)
-			section_add_64(nm->sections, &nm->section_ordinal,\
-				(struct segment_command_64 *)lc);
+		else if (lc->cmd == LC_SEGMENT)
+			section_add_32(nm->sections, &nm->section_ordinal,\
+				(struct segment_command *)lc);
 		lc = (void*)lc + lc->cmdsize;
 		++i;
 	}
