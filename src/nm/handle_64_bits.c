@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 14:14:27 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/19 16:33:59 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static char	get_symbol_type(t_section *sections, struct nlist_64 nlist)
 {
 	char	ret;
 
-	if (SYMBOL_TYPE == N_ABS)
+	if (nlist.n_type & N_STAB)
+		ret = '-';
+	else if (SYMBOL_TYPE == N_ABS)
 		ret = 'A';
 	else if (SYMBOL_TYPE == N_INDR)
 		ret = 'I';
@@ -51,7 +53,7 @@ static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr)
 	nlist = (void*)ptr + sym->symoff;
 	stringtable = (void*)ptr + sym->stroff;
 	j = sym->nsyms - 1;
-	while (j >= 0 && !ft_isstrempty(stringtable + nlist[j].n_un.n_strx))
+	while (j >= 0)
 	{
 		type = get_symbol_type(nm->sections, nlist[j]);
 		if (!is_symbol_skipped(nm->options, type) &&\
@@ -84,8 +86,11 @@ void		handle_64_bits(t_nm *nm, void *ptr)
 		if (lc->cmd == LC_SYMTAB)
 			sym = (struct symtab_command *)lc;
 		else if (lc->cmd == LC_SEGMENT_64)
+		{
+			ft_putendlcol(((struct segment_command *)lc)->segname, YELLOW);
 			section_add_64(nm->sections, &nm->section_ordinal,\
 				(struct segment_command_64 *)lc);
+		}
 		lc = (void*)lc + lc->cmdsize;
 		++i;
 	}

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 14:14:43 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/19 16:37:05 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 **			B = bss section symbol								√
 **			C = common symbol									√
 **			I = indirect symbol									√
-**			- = debugger symbol table entries
+**			- = debugger symbol table entries					√
 **			S = symbol in a section other than those above		√
 **		If the symbol is local (non-external), the symbol's  type
 **		is  instead  represented  by  the corresponding lowercase letter.

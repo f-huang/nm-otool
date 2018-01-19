@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 16:29:44 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 14:12:51 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/19 16:36:24 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void		section_add_64(t_section sections[N_SECTION], uint8_t *section_ordinal, st
 	k = -1;
 	while (++k < seg->nsects && j < N_SECTION)
 	{
+		ft_putendlcol(sec->sectname, RED);
 		if ((type = section_add_determine_type(sec->sectname)))
 		{
 			sections[j++] = (t_section) {
