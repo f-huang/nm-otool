@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 14:49:54 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/22 17:50:43 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <mach-o/fat.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <ar.h>
 #include "libft.h"
 #include "ft_nm.h"
 
@@ -38,6 +39,10 @@ static int	handle_filetype(t_nm *nm, void *ptr, const char *file)
 	else if (magic_number == FAT_MAGIC_64 || magic_number == FAT_CIGAM_64)
 	{
 		ft_putendl("fat64");
+	}
+	else if (ft_strnequ(((struct ar_hdr*)ptr)->ar_name, ARMAG, SARMAG))
+	{
+		handle_ar(nm, ptr, file);
 	}
 	else
 	{

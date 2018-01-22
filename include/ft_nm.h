@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 16:37:05 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/22 18:43:47 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@
 **				`-' is for instance methods,
 **				(category_name) is present only when the method is in a category
 **		The output is sorted alphabetically by default.
+*/
+
+/*
+**	EXTERNAL LINKS
+**		https://www.unix.com/man-page/opensolaris/3HEAD/ar.h/
+**		http://www.manpagez.com/man/5/ranlib/
 */
 
 # define PROGRAM_NAME "nm"
@@ -129,6 +135,7 @@ void				print_symbol_table(t_symbol *symbols, enum e_nm_format format, int optio
 
 void				handle_32_bits(t_nm *nm, void *ptr);
 void				handle_64_bits(t_nm *nm, void *ptr);
+void				handle_ar(t_nm *nm, void *ptr, const char *filename);
 
 char				section_add_determine_type(const char *sectname);
 void				section_add_32(t_section *sections, uint8_t *section_ordinal, struct segment_command *seg);
