@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/22 18:43:47 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/22 19:04:13 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 **	EXTERNAL LINKS
 **		https://www.unix.com/man-page/opensolaris/3HEAD/ar.h/
 **		http://www.manpagez.com/man/5/ranlib/
+**		http://www.manpagez.com/man/5/ar/
 */
 
 # define PROGRAM_NAME "nm"
