@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 11:42:44 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/28 17:38:35 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int		main(int ac, char **av)
 {
 	t_nm	nm;
 	int		i;
+	int		fd;
+	size_t	size;
+	void	*ptr;
 
-	i = 0;
 	ft_bzero(&nm, sizeof(t_nm));
 	nm.format = HEXA;
 	if (!set_options(av, &nm, &i))
@@ -28,10 +30,18 @@ int		main(int ac, char **av)
 		ft_putendl_fd("usage: "PROGRAM_NAME" [-"NM_OPTIONS"] [file ...]", 2);
 	else
 	{
-		if (!set_files(av, &nm, ac, i))
-			return (EXIT_FAILURE);
-		name_list(&nm);
-		clear(&nm);
+		i = 0;
+		ptr = NULL;
+		size = 0;
+		while (av[i++])
+		{
+			if ((fd = open_and_map(ac == 1 ? DEFAULT_FILE : av[i], &ptr, &size)) == -1)
+				continue ;
+			if (ac > 2)
+				ft_printf("\n%s:\n", av[i]);
+			read_symbol(&nm, ptr, av[i]);
+			close_and_unmap(ptr, size, fd);
+		}
 	}
 	return (EXIT_SUCCESS);
 }

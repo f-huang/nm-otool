@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/22 18:59:34 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/28 19:05:49 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,34 @@
 #include "libft.h"
 #include "ft_nm.h"
 
-void		handle_ar(t_nm *nm, void *ptr, const char *filename)
+static int	get_offset(const char *ar_name)
 {
-	struct ar_hdr	*ar;
-	struct ranlib	*ranlib;
-	char			*decimal_offset;
-	int				n_entries;
+	char			*ptr;
 
-	n_entries = 0;
-	ar = (struct ar_hdr*)ptr;
-	decimal_offset = ft_strrchr(ar->ar_name, '/');
-	if (!decimal_offset)
-		return ;
-	n_entries = ft_atoi(decimal_offset + 1);
-	ft_putendl(ar->ar_name);
-	ranlib = ptr + sizeof(struct ar_hdr);
-	ft_printf("%p -> %lu, %u\n", ranlib, ranlib->ran_off, ranlib->ran_un.ran_strx);
+	ptr = ft_strrchr(ar_name, '/');
+	return (ptr ? ft_atoi(ptr + 1) : 0);
+}
+
+void	handle_ar(t_nm *nm, void *ptr, const char *filename)
+{
+	struct ranlib	*ranlib;
+	struct ar_hdr	*ar;
+	int				i;
+	int				n_entries;
+	void			*ptr2;
+
+	ar = (struct ar_hdr*)(ptr + SARMAG);
+	n_entries = get_offset(ar->ar_name);
+	ranlib = (void*)ar + sizeof(struct ar_hdr) + n_entries + sizeof(int);
+	n_entries = *(int*)((void*)ar + n_entries + sizeof(struct ar_hdr))\
+					/ sizeof(struct ranlib);
+	i = 0;
+	while (i < n_entries)
+	{
+		ar = ptr + ranlib[i].ran_off;
+		ptr2 = (void*)ar + sizeof(struct ar_hdr) + get_offset(ar->ar_name);
+		ft_printf("\n%s(%s):\n", filename, ar->ar_name + sizeof(struct ar_hdr));
+		read_symbol(nm, ptr2, ar->ar_name + sizeof(struct ar_hdr));
+		++i;
+	}
 }

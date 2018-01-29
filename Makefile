@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/01/22 17:50:09 by fhuang           ###   ########.fr        #
+#    Updated: 2018/01/28 21:22:58 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,15 +57,15 @@ SYMBOLDIR	:=	symbol/
 ##### ======================
 
 NMSRC		:=	main.c					\
-				clear.c					\
-				get_cmp_function.c		\
+				close_and_unmap.c		\
 				handle_32_bits.c		\
 				handle_64_bits.c		\
 				handle_ar.c				\
+				handle_fat.c				\
 				is_symbol_skipped.c		\
 				name_list.c				\
+				open_and_map.c			\
 				print_symbol_table.c	\
-				set_files.c				\
 				set_options.c			\
 				$(SECTIONDIR)add_32.c	\
 				$(SECTIONDIR)add_64.c	\
@@ -73,10 +73,8 @@ NMSRC		:=	main.c					\
 				$(SECTIONDIR)get_type.c	\
 				$(SYMBOLDIR)add.c		\
 				$(SYMBOLDIR)clear.c		\
-				$(SYMBOLDIR)cmp_name.c	\
-				$(SYMBOLDIR)cmp_value.c	\
-				$(SYMBOLDIR)cmp_r_name.c	\
-				$(SYMBOLDIR)cmp_r_value.c
+				$(SYMBOLDIR)get_cmp_function.c
+
 NMOBJ		:=	$(NMSRC:%.c=$(NMOBJDIR)%.o)
 # ====================
 

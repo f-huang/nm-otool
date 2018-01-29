@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 16:33:59 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/01/28 17:39:04 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,15 @@ void		handle_64_bits(t_nm *nm, void *ptr)
 			sym = (struct symtab_command *)lc;
 		else if (lc->cmd == LC_SEGMENT_64)
 		{
-			ft_putendlcol(((struct segment_command *)lc)->segname, YELLOW);
 			section_add_64(nm->sections, &nm->section_ordinal,\
 				(struct segment_command_64 *)lc);
 		}
 		lc = (void*)lc + lc->cmdsize;
 		++i;
 	}
-	if (sym)
-		get_symbols(nm, sym, ptr);
+	get_symbols(nm, sym, ptr);
+	print_symbol_table(nm->symbols, nm->format, nm->options);
+	ft_bzero(nm->sections, N_SECTION * sizeof(t_section));
+	nm->section_ordinal = 0;
+	symbol_clear(&nm->symbols);
 }

@@ -1,19 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear.c                                            :+:      :+:    :+:   */
+/*   handle_fat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/27 12:41:41 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/27 13:01:13 by fhuang           ###   ########.fr       */
+/*   Created: 2018/01/28 19:07:04 by fhuang            #+#    #+#             */
+/*   Updated: 2018/01/28 21:22:12 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <mach-o/fat.h>
+#include <mach/machine.h>
 #include "ft_nm.h"
 
-void	clear(t_nm *nm)
+void	handle_fat(t_nm *nm, void *ptr)
 {
-	ft_tabfree(&nm->files);
+	struct fat_header	*header;
+	struct fat_arch_64	*fat64;
+	void				*ptr2;
+	uint32_t			i;
+
+	header = (struct fat_header*)ptr;
+	fat64 = ptr + sizeof(struct fat_header);
+	i = 0;
+	while (i < header->nfat_arch)
+	{
+		if (fat64[i].cputype == CPU_TYPE_X86_64)
+		{
+			ptr2 = ptr + fat64[i].offset;
+			read_symbol(nm, ptr2, NULL);
+		}
+		++i;
+	}
 }
