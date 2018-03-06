@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/02/20 12:03:53 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/06 02:12:46 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr)
 	}
 }
 
-void		handle_64_bits(t_nm *nm, void *ptr)
+void		nm_64_bits(t_nm *nm, void *ptr)
 {
 	struct mach_header_64	*header;
 	struct load_command		*lc;

@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/02/18 00:43:33 by fhuang           ###   ########.fr        #
+#    Updated: 2018/03/06 02:14:37 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,11 +59,11 @@ SYMBOLDIR	:=	symbol/
 ##### ======================
 
 NMSRC		:=	main.c					\
-				ft_nm.c				\
-				handle_32_bits.c		\
-				handle_64_bits.c		\
-				handle_ar.c				\
-				handle_fat.c				\
+				ft_nm.c					\
+				32_bits.c				\
+				64_bits.c				\
+				ar.c					\
+				fat.c					\
 				is_symbol_skipped.c		\
 				print_symbol_table.c	\
 				set_options.c			\
@@ -82,11 +82,11 @@ NMOBJ		:=	$(NMSRC:%.c=$(NMOBJDIR)%.o)
 OTOOLDIR	:=	$(SRCDIR)otool/
 OTOOLOBJDIR	:=	$(OBJDIR)otool/
 OTOOLSRC	:=	main.c					\
+				ar.c					\
+				fat.c					\
 				ft_otool.c				\
-				handle_32_bits.c		\
-				handle_64_bits.c		\
-				handle_ar.c				\
-				handle_fat.c
+				32_bits.c				\
+				64_bits.c
 OTOOLOBJ	:=	$(OTOOLSRC:%.c=$(OTOOLOBJDIR)%.o)
 # ====================
 

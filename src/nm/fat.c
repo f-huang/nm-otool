@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 19:07:04 by fhuang            #+#    #+#             */
-/*   Updated: 2018/02/17 12:48:12 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/06 02:13:00 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <mach/machine.h>
 #include "ft_nm.h"
 
-void	handle_fat_64(t_nm *nm, void *ptr)
+void	nm_fat(t_nm *nm, void *ptr)
 {
 	struct fat_header	*header;
 	struct fat_arch_64	*fat64;

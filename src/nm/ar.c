@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2018/02/20 11:49:53 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/06 02:12:52 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	nm_archive(t_nm *nm, struct ar_hdr *header, const char *filename)
 }
 
 
-void	handle_ar(t_nm *nm, void *ptr, const char *filename)
+void	nm_ar(t_nm *nm, void *ptr, const char *filename)
 {
 	struct ranlib	*rans;
 	struct ar_hdr	*header;

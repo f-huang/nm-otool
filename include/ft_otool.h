@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/02/20 12:14:08 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/06 02:11:03 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ typedef struct	s_otool
 }				t_otool;
 
 int			ft_otool(t_otool *otool, void *ptr, const char *filename);
-int			otool_64_bits(t_otool *otool, void *ptr, const char *filename);
+void		otool_64_bits(t_otool *otool, void *ptr, const char *filename);
+void		otool_32_bits(t_otool *otool, void *ptr, const char *filename);
+void		otool_fat(t_otool *otool, void *ptr);
+void		otool_ar(t_otool *otool, void *ptr, const char *filename);
 
 #endif
