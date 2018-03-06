@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   loop_through_arg.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/02/20 12:20:48 by fhuang           ###   ########.fr       */
+/*   Created: 2018/02/17 12:18:24 by fhuang            #+#    #+#             */
+/*   Updated: 2018/02/20 12:22:20 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
-#include "ft_nm.h"
+#include <stddef.h>
 #include "ft_nm_otool.h"
 
-int		main(int ac, char **av)
+int		loop_through_arg(void *env, char **av, int i, int (*f)(void*, void *ptr, const char*))
 {
-	t_nm	nm;
-	int		i;
+	void	*ptr;
+	size_t	size;
+	int		fd;
 
-	i = 0;
-	ft_bzero(&nm, sizeof(t_nm));
-	nm.format = HEXA;
-	if (!set_options(av, &nm, &i))
-		return (EXIT_FAILURE);
-	if (nm.options & OPTION_H)
-		ft_putendl_fd("usage: "PROGRAM_NAME" [-"NM_OPTIONS"] [file ...]", 2);
-	else
+	ptr = NULL;
+	size = 0;
+	while (1)
 	{
-		loop_through_arg(&nm, av, i, (int (*)(void*, void*, const char*))ft_nm);
+		if ((fd = open_and_map(!av[i] ? DEFAULT_FILE : av[i], &ptr, &size)) != -1)
+		{
+			f(env, ptr, !av[i] ? DEFAULT_FILE : av[i]);
+			close_and_unmap(ptr, size, fd);
+		}
+		if (!av[i] || !av[++i])
+			break ;
 	}
-	(void)ac;
-	return (EXIT_SUCCESS);
+	return (0);
 }

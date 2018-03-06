@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_nm_otool.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/02/20 12:22:07 by fhuang           ###   ########.fr       */
+/*   Created: 2018/02/17 12:18:50 by fhuang            #+#    #+#             */
+/*   Updated: 2018/02/20 12:19:13 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
-#include "ft_otool.h"
-#include "ft_nm_otool.h"
+#ifndef FT_NM_OTOOL_H
+# define FT_NM_OTOOL_H
 
-int		main(int ac, char **av)
-{
-	t_otool	otool;
-	int		i;
+// # include "ft_nm.h"
+// # include "ft_otool.h"
 
-	i = 1;
-	ft_bzero(&otool, sizeof(t_otool));
-	if (ac > 1)
-		loop_through_arg(&otool, av, i, (int (*)(void*, void*, const char*))ft_otool);
-	(void)ac;
-	(void)av;
-	return (EXIT_SUCCESS);
-}
+# define DEFAULT_FILE "a.out"
+
+int		open_and_map(const char *filename, void **ptr, size_t *size);
+void	close_and_unmap(void *ptr, size_t size, int fd);
+int		loop_through_arg(void *env, char **av, int i, int (*f)(void*, void *ptr, const char*));
+
+#endif

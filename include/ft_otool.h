@@ -6,12 +6,14 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2017/12/27 09:47:41 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/02/20 12:14:08 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_OTOOL_H
 # define FT_OTOOL_H
+
+# define PROGRAM_NAME "otool"
 
 /*
 **	OPTIONS
@@ -26,5 +28,13 @@
 **	-v     Display verbosely (symbolically) when possible.
 **	-V     Display  the disassembled operands symbolically (this implies the -v option).
 */
+
+typedef struct	s_otool
+{
+	int			options;
+}				t_otool;
+
+int			ft_otool(t_otool *otool, void *ptr, const char *filename);
+int			otool_64_bits(t_otool *otool, void *ptr, const char *filename);
 
 #endif

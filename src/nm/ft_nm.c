@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   name_list.c                                        :+:      :+:    :+:   */
+/*   ft_nm.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/28 19:16:31 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/02/20 12:23:38 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "libft.h"
 #include "ft_nm.h"
 
-int	read_symbol(t_nm *nm, void *ptr, const char *filename)
+int	ft_nm(t_nm *nm, void *ptr, const char *filename)
 {
 	uint32_t	magic_number;
 	// int			swap;
@@ -38,8 +38,7 @@ int	read_symbol(t_nm *nm, void *ptr, const char *filename)
 	}
 	else if (magic_number == FAT_MAGIC_64 || magic_number == FAT_CIGAM_64)
 	{
-		handle_fat(nm, ptr);
-		ft_putendl("fat64");
+		handle_fat_64(nm, ptr);
 	}
 	else if (ft_strnequ(((struct ar_hdr*)ptr)->ar_name, ARMAG, SARMAG))
 	{
@@ -52,37 +51,3 @@ int	read_symbol(t_nm *nm, void *ptr, const char *filename)
 	}
 	return (1);
 }
-
-
-// int			name_list(t_nm *nm)
-// {
-	// int			i;
-	// int			fd;
-	// struct stat	buf;
-	// void		*ptr;
-    //
-	// i = -1;
-	// ptr = NULL;
-	// while (nm->files[++i])
-	// {
-	// 	ft_bzero(&buf, sizeof(struct stat));
-	// 	if ((fd = open(nm->files[i], O_RDONLY)) < 0 || fstat(fd, &buf) < 0\
-	// 		|| (ptr = mmap(NULL, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-	// 		handle_error(nm->files[i], buf, fd, ptr);
-	// 	else
-	// 	{
-			// if (ft_tablen(nm->files) > 1)
-				// ft_printf("\n%s:\n", nm->files[i]);
-	// 		handle_filetype(nm, ptr, nm->files[i]);
-			// print_symbol_table(nm->symbols, nm->format, nm->options);
-	// 		if (ptr)
-	// 			munmap(ptr, buf.st_size);
-	// 		if (fd != -1)
-	// 			close(fd);
-			// ft_bzero(nm->sections, N_SECTION * sizeof(t_section));
-			// nm->section_ordinal = 0;
-			// symbol_clear(&nm->symbols);
-	// 	}
-	// }
-	// return (1);
-// }

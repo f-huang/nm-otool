@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/01/28 21:22:58 by fhuang           ###   ########.fr        #
+#    Updated: 2018/02/18 00:43:33 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ BINDIR		:=	bin/
 INCDIR		:=	include/
 LIBFT		:=	libft/
 LIBDIR		:=	lib/
-SRC			:=
+SRC			:=	close_and_unmap.c		\
+				loop_through_arg.c		\
+				open_and_map.c
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)
 LIBPATH		:=	-L./$(LIBFT)$(LIBDIR) -lft -lftprintf
@@ -57,14 +59,12 @@ SYMBOLDIR	:=	symbol/
 ##### ======================
 
 NMSRC		:=	main.c					\
-				close_and_unmap.c		\
+				ft_nm.c				\
 				handle_32_bits.c		\
 				handle_64_bits.c		\
 				handle_ar.c				\
 				handle_fat.c				\
 				is_symbol_skipped.c		\
-				name_list.c				\
-				open_and_map.c			\
 				print_symbol_table.c	\
 				set_options.c			\
 				$(SECTIONDIR)add_32.c	\
@@ -81,16 +81,21 @@ NMOBJ		:=	$(NMSRC:%.c=$(NMOBJDIR)%.o)
 # ====== otool =======
 OTOOLDIR	:=	$(SRCDIR)otool/
 OTOOLOBJDIR	:=	$(OBJDIR)otool/
-OTOOLSRC	:=	main.c
+OTOOLSRC	:=	main.c					\
+				ft_otool.c				\
+				handle_32_bits.c		\
+				handle_64_bits.c		\
+				handle_ar.c				\
+				handle_fat.c
 OTOOLOBJ	:=	$(OTOOLSRC:%.c=$(OTOOLOBJDIR)%.o)
 # ====================
 
 .PHONY: all libft norme clean fclean re nm otool
 
-all: libft $(NAME)
+all: libft nm otool
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF) $(INCDIR)ft_nm.h $(INCDIR)ft_otool.h
-	@$(CC) -c  $< -o $@ $(INC)
+$(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 	@printf $(GREEN)"•"$(EOC)
 
 $(CACHEF):
@@ -104,12 +109,12 @@ $(CACHEF):
 %.c:
 	@echo $(RED)"Missing file : $@"$(EOC)
 
-$(NAME1): $(NMOBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(NMOBJ) -o $(NAME1) $(LIBPATH) $(INC)
+otool: $(OBJ) $(OTOOLOBJ)
+	@$(CC) $(CFLAGS) $(OBJ) $(OTOOLOBJ) -o $(NAME2) $(LIBPATH) $(INC)
 	@echo $(GREEN)"\t✓"$(EOC)
 
-$(NAME2):  $(OTOOLOBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(OTOOLOBJ) -o $(NAME2) $(LIBPATH) $(INC)
+nm: $(OBJ) $(NMOBJ)
+	@$(CC) $(CFLAGS) $(OBJ) $(NMOBJ) -o $(NAME1) $(LIBPATH) $(INC)
 	@echo $(GREEN)"\t✓"$(EOC)
 
 libft:

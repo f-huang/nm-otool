@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/27 16:52:41 by fhuang            #+#    #+#              #
-#    Updated: 2017/12/27 11:26:22 by fhuang           ###   ########.fr        #
+#    Updated: 2018/02/10 18:26:50 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,6 +144,7 @@ CLEAR		= "\033[2K"
 UP			= "\033[A"
 EOC			= "\033[0;0m"
 BLACK		= "\033[0;30m"
+GREY		= "\033[1;30m"
 RED			= "\033[0;31m"
 GREEN		= "\033[0;32m"
 YELLOW		= "\033[0;33m"
@@ -151,6 +152,7 @@ BLUE		= "\033[0;34m"
 PURPLE		= "\033[0;35m"
 CYAN		= "\033[0;36m"
 WHITE		= "\033[0;37m"
+B_WHITE		= "\033[1;37m"
 # ====================
 
 EXEC			:= $(addprefix $(LIBDIR), $(NAME))
@@ -161,12 +163,13 @@ CACHEF			:=	.cache_exists
 all: ft_printf $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "\033[32m" "-> libft" "\033[0m"
+	@echo $(B_WHITE)" → libft"$(EOC)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
 	@$(CC) $(CFLAGS) -c  $< -o $@ $(INC)
+	@printf $(B_WHITE)"•"$(EOC)
 
 $(CACHEF):
 	@test -d $(OBJDIR) || mkdir $(OBJDIR)

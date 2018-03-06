@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/28 17:39:04 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/02/20 12:03:53 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		handle_64_bits(t_nm *nm, void *ptr)
 	struct mach_header_64	*header;
 	struct load_command		*lc;
 	struct symtab_command	*sym;
-	uint32_t				i;
+	uint64_t				i;
 
 	header = (struct mach_header_64*)ptr;
 	sym = NULL;

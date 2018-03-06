@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/28 19:16:16 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/02/18 01:29:48 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@
 */
 
 # define PROGRAM_NAME "nm"
-# define DEFAULT_FILE "a.out"
 
 /*
 **	OPTIONS
@@ -129,9 +128,9 @@ typedef struct		s_nm
 }					t_nm;
 
 
-int					open_and_map(const char *filename, void **ptr, size_t *size);
-int					close_and_unmap(void *ptr, size_t size, int fd);
-int					read_symbol(t_nm *nm, void *ptr, const char *filename);
+// int					open_and_map(const char *filename, void **ptr, size_t *size);
+// int					close_and_unmap(void *ptr, size_t size, int fd);
+int					ft_nm(t_nm *nm, void *ptr, const char *filename);
 // int					name_list(t_nm *nm);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
@@ -141,7 +140,7 @@ void				print_symbol_table(t_symbol *symbols, enum e_nm_format format, int optio
 void				handle_32_bits(t_nm *nm, void *ptr);
 void				handle_64_bits(t_nm *nm, void *ptr);
 void				handle_ar(t_nm *nm, void *ptr, const char *filename);
-void				handle_fat(t_nm *nm, void *ptr);
+void				handle_fat_64(t_nm *nm, void *ptr);
 
 char				section_add_determine_type(const char *sectname);
 void				section_add_32(t_section *sections, uint8_t *section_ordinal, struct segment_command *seg);
