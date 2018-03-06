@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:11:42 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/06 02:16:59 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	ft_otool(t_otool *otool, void *ptr, const char *filename)
 		otool_32_bits(otool, ptr, filename);
 	else if (magic_number == FAT_MAGIC_64 || magic_number == FAT_CIGAM_64)
 		otool_fat(otool, ptr);
-	// else if (ft_strnequ(((struct ar_hdr*)ptr)->ar_name, ARMAG, SARMAG))
-		// otool_ar(otool, ptr, filename);
+	else if (ft_strnequ(((struct ar_hdr*)ptr)->ar_name, ARMAG, SARMAG))
+		otool_ar(otool, ptr, filename);
 	else
 	{
 		ft_printf_fd(2, PROGRAM_NAME": %s: The file was not recognized as a valid object file.\n", filename);

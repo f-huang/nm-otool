@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:11:28 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/06 02:20:39 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void		otool_32_bits(t_otool *otool, void *ptr, const char *filename)
 	header = (struct mach_header*)ptr;
 	lc = ptr + sizeof(struct mach_header);
 	i = 0;
-	ft_printf("%s:\n", filename);
+	if (filename)
+		ft_printf("%s:\n", filename);
 	while (i < header->ncmds)
 	{
 		if (lc->cmd == LC_SEGMENT)
