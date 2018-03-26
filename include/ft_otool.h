@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:11:03 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 19:47:07 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@
 **	       With the -v flag, this disassembles the text.
 **	       And with -V, it also symbolically disassembles the operands.
 **	-d     Display the contents of the (__DATA,__data) section.
-**	-o     Display the contents of the __OBJC segment used by the Objective-C run-time system.
+**	-o     Display the contents of the __OBJC segment\
+**			used by the Objective-C run-time system.
 **	-h     Display the Mach header.
 **	-l     Display the load commands.
 **	-v     Display verbosely (symbolically) when possible.
-**	-V     Display  the disassembled operands symbolically (this implies the -v option).
+**	-V     Display  the disassembled operands symbolically\
+**				(this implies the -v option).
 */
 
 typedef struct	s_otool
@@ -34,10 +36,10 @@ typedef struct	s_otool
 	int			options;
 }				t_otool;
 
-int			ft_otool(t_otool *otool, void *ptr, const char *filename);
-void		otool_64_bits(t_otool *otool, void *ptr, const char *filename);
-void		otool_32_bits(t_otool *otool, void *ptr, const char *filename);
-void		otool_fat(t_otool *otool, void *ptr);
-void		otool_ar(t_otool *otool, void *ptr, const char *filename);
+int				ft_otool(t_otool *otool, void *ptr, const char *filename);
+void			otool_64_bits(t_otool *otool, void *ptr, const char *filename);
+void			otool_32_bits(t_otool *otool, void *ptr, const char *filename);
+void			otool_fat(t_otool *otool, void *ptr);
+void			otool_ar(t_otool *otool, void *ptr, const char *filename);
 
 #endif

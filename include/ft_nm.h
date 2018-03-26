@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 17:45:24 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 19:46:16 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@
 
 # define N_SECTION 3
 
-enum e_nm_format
+enum				e_nm_format
 {
 	DECIMAL = 10,
 	OCTAL = 8,
@@ -126,12 +126,12 @@ typedef struct		s_nm
 	t_symbol			*symbols;
 }					t_nm;
 
-
 int					ft_nm(t_nm *nm, void *ptr, const char *filename);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
 void				clear(t_nm *nm);
-void				print_symbol_table(t_symbol *symbols, enum e_nm_format format, int options);
+void				print_symbol_table(t_symbol *symbols,\
+						enum e_nm_format format, int options);
 
 void				nm_32_bits(t_nm *nm, void *ptr);
 void				nm_64_bits(t_nm *nm, void *ptr);
@@ -139,14 +139,18 @@ void				nm_ar(t_nm *nm, void *ptr, const char *filename);
 void				nm_fat(t_nm *nm, void *ptr);
 
 char				section_add_determine_type(const char *sectname);
-void				section_add_32(t_section *sections, uint8_t *section_ordinal, struct segment_command *seg);
-void				section_add_64(t_section *sections, uint8_t *section_ordinal, struct segment_command_64 *seg);
+void				section_add_32(t_section *sections,\
+						uint8_t *section_ordinal, struct segment_command *seg);
+void				section_add_64(t_section *sections,\
+						uint8_t *section_ordinal,\
+						struct segment_command_64 *seg);
 char				section_get_type(t_section *sections, uint8_t index);
 int					is_symbol_skipped(int options, char type);
-void				symbol_add(t_symbol **symbols, t_symbol *new, int (*cmp)(t_symbol, t_symbol));
+void				symbol_add(t_symbol **symbols, t_symbol *new,\
+						int (*cmp)(t_symbol, t_symbol));
 void				symbol_clear(t_symbol **symbols);
 
-int 				(*get_cmp_function(int options))(t_symbol, t_symbol);
+int					(*get_cmp_function(int options))(t_symbol, t_symbol);
 int					symbol_cmp_name(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_value(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_r_name(t_symbol sym1, t_symbol sym2);
