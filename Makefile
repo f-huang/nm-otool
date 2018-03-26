@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/03/26 18:13:27 by fhuang           ###   ########.fr        #
+#    Updated: 2018/03/26 18:28:42 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,8 @@ SYMBOLDIR	:=	symbol/
 
 NMSRC		:=	main.c					\
 				ft_nm.c					\
-				32_bits.c				\
-				64_bits.c				\
+				file_32_bits.c			\
+				file_64_bits.c			\
 				ar.c					\
 				fat.c					\
 				is_symbol_skipped.c		\

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 18:13:55 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/28 21:21:36 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 18:33:14 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		symbol_cmp_value(t_symbol sym1, t_symbol sym2)
 	return (sym1.value > sym2.value);
 }
 
-int (*get_cmp_function(int options))(t_symbol, t_symbol)
+int		(*get_cmp_function(int options))(t_symbol, t_symbol)
 {
 	if (options & OPTION_N)
 		return ((options & OPTION_R) ? symbol_cmp_r_value : symbol_cmp_value);

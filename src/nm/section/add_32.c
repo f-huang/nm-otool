@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 16:29:44 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/19 14:13:16 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 18:31:15 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "libft.h"
 #include "ft_nm.h"
 
-void		section_add_32(t_section sections[N_SECTION], uint8_t *section_ordinal, struct segment_command *seg)
+void		section_add_32(t_section sections[N_SECTION],\
+	uint8_t *section_ordinal, struct segment_command *seg)
 {
 	char			type;
 	struct section	*sec;

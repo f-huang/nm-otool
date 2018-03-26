@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 17:45:36 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 18:27:57 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ int	ft_nm(t_nm *nm, void *ptr, const char *filename)
 		nm_ar(nm, ptr, filename);
 	else
 	{
-		ft_printf_fd(2, PROGRAM_NAME": %s: The file was not recognized as a valid object file.\n", filename);
+		ft_printf_fd(2, PROGRAM_NAME\
+			": %s: The file was not recognized as a valid object file.\n",\
+			filename);
 		return (0);
 	}
 	return (1);

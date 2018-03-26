@@ -6,21 +6,21 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 18:58:23 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/18 18:00:47 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 18:32:58 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_nm.h"
 
-void	symbol_add(t_symbol **symbols, t_symbol *new, int (*cmp)(t_symbol, t_symbol))
+void	symbol_add(t_symbol **symbols, t_symbol *new,\
+	int (*cmp)(t_symbol, t_symbol))
 {
 	t_symbol	*iterator;
 	t_symbol	*prev;
 
-	if (!new)
+	if (!(prev = NULL) && !new)
 		return ;
-	prev = NULL;
 	iterator = *symbols;
 	while (iterator)
 	{

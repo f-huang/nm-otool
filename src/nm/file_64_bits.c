@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_64_bits.c                                   :+:      :+:    :+:   */
+/*   file_64_bits.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:12:46 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 18:50:01 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mach-o/nlist.h>
-#include "libft.h"
 #include "ft_nm.h"
+#include "libft.h"
 
 #define SYMBOL_TYPE (nlist.n_type & N_TYPE)
 
 static char	get_symbol_type(t_section *sections, struct nlist_64 nlist)
 {
-	char	ret;
+	char					ret;
 
 	if (nlist.n_type & N_STAB)
 		ret = '-';
@@ -76,26 +76,25 @@ void		nm_64_bits(t_nm *nm, void *ptr)
 	struct load_command		*lc;
 	struct symtab_command	*sym;
 	uint64_t				i;
+	int						n_section;
 
 	header = (struct mach_header_64*)ptr;
 	sym = NULL;
+	n_section = N_SECTION;
 	lc = ptr + sizeof(struct mach_header_64);
-	i = 0;
-	while (i < header->ncmds)
+	i = -1;
+	while (++i < header->ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
 			sym = (struct symtab_command *)lc;
 		else if (lc->cmd == LC_SEGMENT_64)
-		{
 			section_add_64(nm->sections, &nm->section_ordinal,\
 				(struct segment_command_64 *)lc);
-		}
 		lc = (void*)lc + lc->cmdsize;
-		++i;
 	}
 	get_symbols(nm, sym, ptr);
 	print_symbol_table(nm->symbols, nm->format, nm->options);
-	ft_bzero(nm->sections, N_SECTION * sizeof(t_section));
+	ft_bzero(nm->sections, (n_section * sizeof(t_section)));
 	nm->section_ordinal = 0;
 	symbol_clear(&nm->symbols);
 }
