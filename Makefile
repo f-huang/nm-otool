@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/03/06 02:14:37 by fhuang           ###   ########.fr        #
+#    Updated: 2018/03/26 18:13:27 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,8 +85,8 @@ OTOOLSRC	:=	main.c					\
 				ar.c					\
 				fat.c					\
 				ft_otool.c				\
-				32_bits.c				\
-				64_bits.c
+				file_32_bits.c			\
+				file_64_bits.c
 OTOOLOBJ	:=	$(OTOOLSRC:%.c=$(OTOOLOBJDIR)%.o)
 # ====================
 

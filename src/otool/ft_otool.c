@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:16:59 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 18:10:00 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	ft_otool(t_otool *otool, void *ptr, const char *filename)
 		otool_ar(otool, ptr, filename);
 	else
 	{
-		ft_printf_fd(2, PROGRAM_NAME": %s: The file was not recognized as a valid object file.\n", filename);
+		ft_printf_fd(2,\
+			PROGRAM_NAME\
+			": %s: The file was not recognized as a valid object file.\n",\
+			filename);
 		return (0);
 	}
 	return (1);

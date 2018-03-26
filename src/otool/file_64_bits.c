@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   64_bits.c                                          :+:      :+:    :+:   */
+/*   file_64_bits.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:20:47 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 18:13:40 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	print_section(struct section_64 *section, const void *ptr)
 	}
 }
 
-static void	parse_sections_64(struct segment_command_64 *segment, const void *ptr)
+static void	parse_sections_64(struct segment_command_64 *segment,\
+	const void *ptr)
 {
 	uint64_t			i;
 	struct section_64	*section;
@@ -52,7 +53,8 @@ static void	parse_sections_64(struct segment_command_64 *segment, const void *pt
 			ft_printf("Contents of (%s,%s) section\n", SEG_TEXT, SECT_TEXT);
 			print_section(section + i, ptr);
 		}
-		section = (struct section_64*)((void*)section + sizeof(struct section_64));
+		section = (struct section_64*)((void*)section +\
+			sizeof(struct section_64));
 		i++;
 	}
 }
