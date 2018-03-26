@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 13:07:30 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 17:27:52 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 19:09:57 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	handle_error(const char *file, int *fd, const void *ptr)
 		close(*fd);
 	*fd = -1;
 }
+
 int			open_and_map(const char *filename, void **ptr, size_t *size)
 {
 	struct stat	buf;
