@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:14:27 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 17:45:24 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ struct				s_nm_print
 typedef struct		s_nm
 {
 	int					options;
-	// char				**files;
 	enum e_nm_format	format;
 	uint8_t				section_ordinal;
 	t_section			sections[N_SECTION];
@@ -128,10 +127,7 @@ typedef struct		s_nm
 }					t_nm;
 
 
-// int					open_and_map(const char *filename, void **ptr, size_t *size);
-// int					close_and_unmap(void *ptr, size_t size, int fd);
 int					ft_nm(t_nm *nm, void *ptr, const char *filename);
-// int					name_list(t_nm *nm);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
 void				clear(t_nm *nm);

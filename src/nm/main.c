@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/02/20 12:20:48 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 17:57:33 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		main(int ac, char **av)
 {
 	t_nm	nm;
 	int		i;
+	int		print;
 
 	i = 0;
 	ft_bzero(&nm, sizeof(t_nm));
@@ -29,8 +30,15 @@ int		main(int ac, char **av)
 		ft_putendl_fd("usage: "PROGRAM_NAME" [-"NM_OPTIONS"] [file ...]", 2);
 	else
 	{
-		loop_through_arg(&nm, av, i, (int (*)(void*, void*, const char*))ft_nm);
+		print = (int)(ac - i > 1);
+		while (1)
+		{
+			if (print)
+				ft_printf("\n%s:\n", !av[i] ? DEFAULT_FILE : av[i]);
+			handle_file(&nm, !av[i] ? DEFAULT_FILE : av[i], (int (*)(void*, void*, const char*))ft_nm);
+			if (!av[i] || !av[++i])
+				break ;
+		}
 	}
-	(void)ac;
 	return (EXIT_SUCCESS);
 }

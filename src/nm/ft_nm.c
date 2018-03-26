@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:14:33 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 17:45:36 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@
 int	ft_nm(t_nm *nm, void *ptr, const char *filename)
 {
 	uint32_t	magic_number;
-	// int			swap;
 
 	magic_number = *((int*)ptr);
-	// swap = (magic_number == MH_CIGAM_64 || magic_number == MH_CIGAM || magic_number == FAT_CIGAM);
 	if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
 		nm_64_bits(nm, ptr);
 	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)

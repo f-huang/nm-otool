@@ -26,7 +26,7 @@ INCDIR		:=	include/
 LIBFT		:=	libft/
 LIBDIR		:=	lib/
 SRC			:=	close_and_unmap.c		\
-				loop_through_arg.c		\
+				handle_file.c		\
 				open_and_map.c
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)

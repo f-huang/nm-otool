@@ -6,32 +6,34 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 13:07:30 by fhuang            #+#    #+#             */
-/*   Updated: 2018/01/28 17:18:44 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/26 17:27:52 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include "libft.h"
 #include "ft_nm.h"
 
-static void	handle_error(const char *file, struct stat buf, const int fd, const void *ptr)
+static void	handle_error(const char *file, int *fd, const void *ptr)
 {
-	int		ret;
+	struct stat	buf;
+	int			ret;
 
-	if (fd == -1)
-	{
-		ret = fstat(fd, &buf);
-		if (ret < 0)
-			ft_printf_fd(2, PROGRAM_NAME": %s: Could not open file.\n", file);
-		else if (S_ISDIR(buf.st_mode) == 1)
-			ft_printf_fd(2, PROGRAM_NAME": %s: Is a directory.\n", file);
-		else if (buf.st_size == 0)
-			ft_printf_fd(2, PROGRAM_NAME": %s: Is an empty file.\n", file);
-	}
+	ret = fstat(*fd, &buf);
+	if (ret < 0)
+		ft_printf_fd(2, PROGRAM_NAME": %s: Could not open file.\n", file);
+	else if (S_ISDIR(buf.st_mode) == 1)
+		ft_printf_fd(2, PROGRAM_NAME": %s: Is a directory.\n", file);
+	else if (buf.st_size == 0)
+		ft_printf_fd(2, PROGRAM_NAME": %s: Is an empty file.\n", file);
 	else if (ptr == NULL)
 		ft_printf_fd(2, PROGRAM_NAME": %s: Could not be mapped.\n", file);
+	if (*fd != -1)
+		close(*fd);
+	*fd = -1;
 }
 int			open_and_map(const char *filename, void **ptr, size_t *size)
 {
@@ -43,9 +45,12 @@ int			open_and_map(const char *filename, void **ptr, size_t *size)
 	ft_bzero(&buf, sizeof(struct stat));
 	if ((fd = open(filename, O_RDONLY)) < 0\
 		|| fstat(fd, &buf) < 0\
+		|| S_ISDIR(buf.st_mode) == 1\
 		|| (*ptr = mmap(NULL, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0))\
 			== MAP_FAILED)
-		handle_error(filename, buf, fd, ptr);
+	{
+		handle_error(filename, &fd, ptr);
+	}
 	*size = buf.st_size;
 	return (fd);
 }
