@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:18:24 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 19:10:06 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/31 16:58:25 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ int		handle_file(void *env, const char *filename,\
 	void	*ptr;
 	size_t	size;
 	int		fd;
+	int		error;
 
 	ptr = NULL;
+	error = 0;
 	size = 0;
 	if ((fd = open_and_map(filename, &ptr, &size)) != -1)
 	{
-		f(env, ptr, filename);
+		error = !f(env, ptr, filename);
 		close_and_unmap(ptr, size, fd);
 	}
-	return (0);
+	else
+		error = 1;
+	return (error);
 }

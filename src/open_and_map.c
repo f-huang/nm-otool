@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 13:07:30 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 19:09:57 by fhuang           ###   ########.fr       */
+/*   Updated: 2018/03/31 16:57:41 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static void	handle_error(const char *file, int *fd, const void *ptr)
 
 	ret = fstat(*fd, &buf);
 	if (ret < 0)
-		ft_printf_fd(2, PROGRAM_NAME": %s: Could not open file.\n", file);
+		ft_printf_fd(2, PROGRAM_NAME": %s: No such file or directory or "\
+		"Could not open file.\n", file);
 	else if (S_ISDIR(buf.st_mode) == 1)
 		ft_printf_fd(2, PROGRAM_NAME": %s: Is a directory.\n", file);
 	else if (buf.st_size == 0)
