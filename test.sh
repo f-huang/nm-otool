@@ -27,20 +27,26 @@ function print_result() {
 		echo "\033[0;32m""√ \t $1""\033[0;0m"
 	else
 		echo "\033[0;31m""✗ \t $1""\033[0;0m"
+		echo $1 >> wrong_results.txt
 	fi
-	rm -r $output_mine $output_theirs
 }
 
 function check_nm() {
-	$bin_nm_mine $1 > $output_mine
-	$bin_nm $1 > $output_theirs
-	print_result $1
+	$bin_nm_mine $1 2>&- > $output_mine
+	if [ $? -eq 0 ] ; then
+		$bin_nm $1 > $output_theirs
+		print_result $1
+	fi
+	rm -rf $output_mine $output_theirs
 }
 
 function check_otool() {
-	$bin_otool_mine $1 > $output_mine
-	$bin_otool -t $1 > $output_theirs
-	print_result $1
+	$bin_otool_mine $1 2>&- > $output_mine
+	if [ $? -eq 0 ]; then
+		$bin_otool -t $1 > $output_theirs
+		print_result $1
+	fi
+	rm -fr $output_mine $output_theirs
 }
 
 for dir in $dirs; do
