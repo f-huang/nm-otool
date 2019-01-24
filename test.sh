@@ -19,6 +19,8 @@ dirs=(\
 #############
 output_mine="mine"
 output_theirs="theirs"
+
+results_file="wrong_results.txt"
 ##############
 
 function print_result() {
@@ -49,9 +51,10 @@ function check_otool() {
 	rm -fr $output_mine $output_theirs
 }
 
+rm -r $results_file
 for dir in $dirs; do
 	for file in $dir/*; do
 		check_nm $file
-		check_otool $file
+		# check_otool $file
 	done
 done
