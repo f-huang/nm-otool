@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 19:46:16 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/24 16:37:21 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@
 # define OPTION_J  (1 << 5)
 # define OPTION_T  (1 << 6)
 # define OPTION_H  (1 << 7)
+
+/*
+**	3 types of LC_SEGMENT load_command->cmd:
+**		PAGE_ZERO, TEXT, DATA
+*/
 
 # define N_SECTION 3
 
