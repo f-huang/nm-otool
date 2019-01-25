@@ -6,10 +6,11 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 19:20:57 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/25 17:43:58 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/25 17:47:47 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <mach-o/ldsyms.h>
 #include "libft.h"
 #include "ft_nm.h"
 
@@ -20,7 +21,7 @@ static int			mh_header_smaller_than_int(t_symbol *symbols)
 	iterator = symbols;
 	while (iterator)
 	{
-		if (ft_strequ(iterator->name, "__mh_execute_header") &&\
+		if (ft_strequ(iterator->name, _MH_EXECUTE_SYM) &&\
 			iterator->value != 0x0000000100000000)
 			return (1);
 			// ft_printf("---------------> %016lx\n", iterator->value);
