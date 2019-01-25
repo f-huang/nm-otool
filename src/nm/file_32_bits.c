@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/25 15:55:17 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/25 17:44:23 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,9 @@ void		nm_32_bits(t_nm *nm, void *ptr)
 	struct load_command		*lc;
 	struct symtab_command	*sym;
 	uint32_t				i;
-	int						n_section;
 
 	header = (struct mach_header*)ptr;
 	sym = NULL;
-	n_section = N_SECTION;
 	lc = ptr + sizeof(struct mach_header);
 	i = -1;
 	while (++i < header->ncmds)
@@ -94,7 +92,7 @@ void		nm_32_bits(t_nm *nm, void *ptr)
 	}
 	get_symbols(nm, sym, ptr);
 	print_symbol_table(nm->symbols, nm->format, nm->options);
-	ft_bzero(nm->sections, (n_section * sizeof(t_section)));
+	ft_bzero(nm->sections, (N_SECTION * sizeof(t_section)));
 	nm->section_ordinal = 0;
 	symbol_clear(&nm->symbols);
 }
