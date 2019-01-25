@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/24 16:37:21 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/25 17:43:01 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ enum				e_nm_format
 {
 	DECIMAL = 10,
 	OCTAL = 8,
-	HEXA = 16
+	HEXA = 16,
+	MH_NOT_32BITS = 32
 };
 
 typedef struct		s_symbol
