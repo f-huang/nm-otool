@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 16:29:44 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 18:31:15 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/25 15:54:23 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ void		section_add_32(t_section sections[N_SECTION],\
 	uint32_t		j;
 	uint32_t		k;
 
-	j = sections[0].type ? 0 : 1;
-	j += sections[1].type ? 1 : 0;
 	sec = (void*)(seg + 1);
 	k = -1;
+	j = (sections[0].type ? 1 : 0) + (sections[1].type ? 1 : 0);
 	while (++k < seg->nsects && j < N_SECTION)
 	{
 		if ((type = section_add_determine_type(sec->sectname)))
