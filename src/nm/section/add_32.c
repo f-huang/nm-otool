@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 16:29:44 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/25 15:54:23 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/26 17:01:55 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_nm.h"
 
 void		section_add_32(t_section sections[N_SECTION],\
-	uint8_t *section_ordinal, struct segment_command *seg)
+	uint8_t *section_ordinal, struct segment_command *seg, uint8_t swap)
 {
 	char			type;
 	struct section	*sec;
@@ -25,7 +25,7 @@ void		section_add_32(t_section sections[N_SECTION],\
 	sec = (void*)(seg + 1);
 	k = -1;
 	j = (sections[0].type ? 1 : 0) + (sections[1].type ? 1 : 0);
-	while (++k < seg->nsects && j < N_SECTION)
+	while (++k < swap_32(seg->nsects, swap) && j < N_SECTION)
 	{
 		if ((type = section_add_determine_type(sec->sectname)))
 		{

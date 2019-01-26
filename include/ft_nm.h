@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/25 17:43:01 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/26 17:02:28 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,17 +139,22 @@ void				clear(t_nm *nm);
 void				print_symbol_table(t_symbol *symbols,\
 						enum e_nm_format format, int options);
 
-void				nm_32_bits(t_nm *nm, void *ptr);
-void				nm_64_bits(t_nm *nm, void *ptr);
+void				nm_32_bits(t_nm *nm, void *ptr, uint8_t swap);
+void				nm_64_bits(t_nm *nm, void *ptr, uint8_t swap);
 void				nm_ar(t_nm *nm, void *ptr, const char *filename);
-void				nm_fat(t_nm *nm, void *ptr);
+void				nm_fat_32(t_nm *nm, void *ptr, uint8_t swap);
+void				nm_fat_64(t_nm *nm, void *ptr, uint8_t swap);
+
+uint8_t				swap_16(uint8_t value, uint8_t swap);
+uint32_t			swap_32(uint32_t value, uint8_t swap);
+uint64_t			swap_64(uint64_t value, uint8_t swap);
 
 char				section_add_determine_type(const char *sectname);
 void				section_add_32(t_section *sections,\
-						uint8_t *section_ordinal, struct segment_command *seg);
+						uint8_t *section_ordinal, struct segment_command *seg, uint8_t swap);
 void				section_add_64(t_section *sections,\
 						uint8_t *section_ordinal,\
-						struct segment_command_64 *seg);
+						struct segment_command_64 *seg, uint8_t swap);
 char				section_get_type(t_section *sections, uint8_t index);
 int					is_symbol_skipped(int options, char type);
 void				symbol_add(t_symbol **symbols, t_symbol *new,\

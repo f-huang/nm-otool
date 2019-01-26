@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 13:02:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/25 15:56:38 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/26 17:22:24 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,19 @@
 
 int	ft_nm(t_nm *nm, void *ptr, const char *filename)
 {
-	uint32_t	magic_number;
+	uint32_t	magic;
+	uint8_t		swap;
 
-	magic_number = *((int*)ptr);
-	if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
-		nm_64_bits(nm, ptr);
-	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)
-		nm_32_bits(nm, ptr);
-	else if (magic_number == FAT_MAGIC_64 || magic_number == FAT_CIGAM_64)
-		nm_fat(nm, ptr);
+	magic = *((int*)ptr);
+	swap = (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM || magic == FAT_CIGAM_64);
+	if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64)
+		nm_64_bits(nm, ptr, swap);
+	else if (magic == MH_MAGIC || magic == MH_CIGAM)
+		nm_32_bits(nm, ptr, swap);
+	else if (magic == FAT_MAGIC || magic == FAT_CIGAM)
+		nm_fat_32(nm, ptr, swap);
+	else if (magic == FAT_MAGIC_64 || magic == FAT_CIGAM_64)
+		nm_fat_64(nm, ptr, swap);
 	else if (ft_strnequ(((struct ar_hdr*)ptr)->ar_name, ARMAG, SARMAG))
 		nm_ar(nm, ptr, filename);
 	else

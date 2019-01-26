@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_fat.c                                       :+:      :+:    :+:   */
+/*   fat_64.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 19:07:04 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:13:00 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/26 16:43:51 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,24 @@
 #include <mach/machine.h>
 #include "ft_nm.h"
 
-void	nm_fat(t_nm *nm, void *ptr)
+void	nm_fat_64(t_nm *nm, void *ptr, uint8_t swap)
 {
 	struct fat_header	*header;
 	struct fat_arch_64	*fat64;
 	void				*ptr2;
-	uint32_t			i;
+	uint64_t			i;
+	uint64_t			nfat_arch;
 
 	header = (struct fat_header*)ptr;
 	fat64 = (struct fat_arch_64*)(ptr + sizeof(struct fat_header));
 	i = 0;
-	while (i < header->nfat_arch)
+	nfat_arch = swap_64(header->nfat_arch, swap);
+	while (i < nfat_arch)
 	{
 		ptr2 = header;
-		if (fat64[i].cputype == CPU_TYPE_X86_64)
+		if (swap_64(fat64[i].cputype, swap) == CPU_TYPE_X86_64)
 		{
-			ptr2 += fat64[i].offset;
+			ptr2 += swap_64(fat64[i].offset, 64);
 			ft_nm(nm, ptr2, NULL);
 		}
 		++i;

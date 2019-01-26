@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2018/03/26 18:28:42 by fhuang           ###   ########.fr        #
+#    Updated: 2019/01/26 16:57:24 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ NMOBJDIR	:=	$(OBJDIR)nm/
 ##### === Subdirectories ===
 SECTIONDIR	:=	section/
 SYMBOLDIR	:=	symbol/
+SWAPDIR	:=	swap/
 ##### ======================
 
 NMSRC		:=	main.c					\
@@ -63,7 +64,8 @@ NMSRC		:=	main.c					\
 				file_32_bits.c			\
 				file_64_bits.c			\
 				ar.c					\
-				fat.c					\
+				fat_32.c					\
+				fat_64.c					\
 				is_symbol_skipped.c		\
 				print_symbol_table.c	\
 				set_options.c			\
@@ -71,6 +73,9 @@ NMSRC		:=	main.c					\
 				$(SECTIONDIR)add_64.c	\
 				$(SECTIONDIR)add_determine_type.c		\
 				$(SECTIONDIR)get_type.c	\
+				$(SWAPDIR)swap_16.c		\
+				$(SWAPDIR)swap_32.c		\
+				$(SWAPDIR)swap_64.c		\
 				$(SYMBOLDIR)add.c		\
 				$(SYMBOLDIR)clear.c		\
 				$(SYMBOLDIR)get_cmp_function.c
@@ -103,6 +108,7 @@ $(CACHEF):
 	@test -d $(NMOBJDIR) || mkdir $(NMOBJDIR)
 	@test -d $(NMOBJDIR)$(SECTIONDIR) || mkdir $(NMOBJDIR)$(SECTIONDIR)
 	@test -d $(NMOBJDIR)$(SYMBOLDIR) || mkdir $(NMOBJDIR)$(SYMBOLDIR)
+	@test -d $(NMOBJDIR)$(SWAPDIR) || mkdir $(NMOBJDIR)$(SWAPDIR)
 	@test -d $(OTOOLOBJDIR) || mkdir $(OTOOLOBJDIR)
 	@test -d $(CACHEF) || touch $(CACHEF)
 
