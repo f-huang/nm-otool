@@ -6,20 +6,20 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/28 21:43:48 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/28 21:46:57 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mach-o/nlist.h>
 #include "ft_nm.h"
 #include "libft.h"
-#include <stdio.h>
+
 #define SYMBOL_TYPE (n_type & N_TYPE)
 
 static char	get_symbol_type(t_section *sections, struct nlist nlist, uint8_t swap)
 {
 	char					ret;
-	uint32_t				n_type;
+	uint8_t				n_type;
 
 	n_type = nlist.n_type;
 	if (n_type & N_STAB)
