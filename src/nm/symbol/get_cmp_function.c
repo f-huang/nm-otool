@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 18:13:55 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 18:33:14 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/28 19:44:20 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,18 @@
 
 int		symbol_cmp_name(t_symbol sym1, t_symbol sym2)
 {
-	return (ft_strcmp(sym1.name, sym2.name));
+	int		ret;
+
+	ret = ft_strcmp(sym1.name, sym2.name);
+	return (ret ? ret : symbol_cmp_value(sym1, sym2));
 }
 
 int		symbol_cmp_r_name(t_symbol sym1, t_symbol sym2)
 {
 	int		ret;
 
-	return (!(ret = ft_strcmp(sym1.name, sym2.name) * -1) ? 1 : ret);
+	ret = ft_strcmp(sym1.name, sym2.name) * -1;
+	return (ret ? ret : symbol_cmp_r_value(sym1, sym2));
 }
 
 int		symbol_cmp_r_value(t_symbol sym1, t_symbol sym2)
