@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 19:07:04 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/28 19:07:23 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/28 20:55:45 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	nm_fat_32(t_nm *nm, void *ptr, uint8_t swap)
 	{
 		ptr2 = header;
 		cputype = swap_32(fat[i].cputype, swap);
-		if (!already_parsed(fat, i, swap) && cputype == CPU_TYPE_X86_64)
+		if (!already_parsed(fat, i, swap) && \
+			(cputype == CPU_TYPE_X86_64 || cputype == CPU_TYPE_POWERPC))
 		{
 			ptr2 += swap_32(fat[i].offset, swap);
 			ft_nm(nm, ptr2, NULL);
