@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/26 17:02:28 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/30 15:32:39 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ enum				e_nm_format
 	MH_NOT_32BITS = 32
 };
 
+typedef struct		s_cpu
+{
+	char			*cpuname;
+	uint32_t		cputype;
+}					t_cpu;
+
 typedef struct		s_symbol
 {
 	char				*name;
@@ -142,8 +148,8 @@ void				print_symbol_table(t_symbol *symbols,\
 void				nm_32_bits(t_nm *nm, void *ptr, uint8_t swap);
 void				nm_64_bits(t_nm *nm, void *ptr, uint8_t swap);
 void				nm_ar(t_nm *nm, void *ptr, const char *filename);
-void				nm_fat_32(t_nm *nm, void *ptr, uint8_t swap);
-void				nm_fat_64(t_nm *nm, void *ptr, uint8_t swap);
+void				nm_fat_32(t_nm *nm, void *ptr, const char *filename, uint8_t swap);
+void				nm_fat_64(t_nm *nm, void *ptr, const char *filename, uint8_t swap);
 
 uint8_t				swap_16(uint8_t value, uint8_t swap);
 uint32_t			swap_32(uint32_t value, uint8_t swap);
