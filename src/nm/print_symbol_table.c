@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 19:20:57 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/25 17:47:47 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/30 17:11:24 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static int			mh_header_smaller_than_int(t_symbol *symbols)
 	iterator = symbols;
 	while (iterator)
 	{
-		if (ft_strequ(iterator->name, _MH_EXECUTE_SYM) &&\
-			iterator->value != 0x0000000100000000)
+		if ((ft_strequ(iterator->name, _MH_EXECUTE_SYM) &&\
+			iterator->value != 0x0000000100000000) ||
+			(ft_strequ(iterator->name, _MH_DYLIB_SYM) && iterator->value == 0))
 			return (1);
-			// ft_printf("---------------> %016lx\n", iterator->value);
 		iterator = iterator->next;
 	}
 	return (0);
