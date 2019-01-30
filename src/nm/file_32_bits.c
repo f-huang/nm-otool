@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/28 21:46:57 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/30 16:34:57 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static char	get_symbol_type(t_section *sections, struct nlist nlist, uint8_t swa
 		ret = 'C';
 	else if (SYMBOL_TYPE == N_UNDF || SYMBOL_TYPE == N_PBUD)
 		ret = 'U';
-	else if (swap_16(nlist.n_desc, swap) & N_WEAK_REF)
-		ret = 'W';
 	else if (SYMBOL_TYPE == N_SECT)
 	{
 		if (!(ret = section_get_type(sections, nlist.n_sect)))
@@ -41,7 +39,7 @@ static char	get_symbol_type(t_section *sections, struct nlist nlist, uint8_t swa
 	}
 	else
 		ret = '?';
-	if (ret != '?' && (n_type & N_PEXT || !(n_type & N_EXT)))
+	if (ret != '?' && !(n_type & N_EXT))
 		ret = ft_tolower(ret);
 	return (ret);
 }

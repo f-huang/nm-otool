@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/26 17:15:43 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/30 16:34:59 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	get_symbol_type(t_section *sections, struct nlist_64 nlist, uint8_t 
 	char					ret;
 	uint8_t					n_type;
 
-	n_type = swap_32(nlist.n_type, swap);
+	n_type = nlist.n_type;
 	if (n_type & N_STAB)
 		ret = '-';
 	else if (SYMBOL_TYPE == N_ABS)
@@ -32,16 +32,14 @@ static char	get_symbol_type(t_section *sections, struct nlist_64 nlist, uint8_t 
 		ret = 'C';
 	else if (SYMBOL_TYPE == N_UNDF || SYMBOL_TYPE == N_PBUD)
 		ret = 'U';
-	else if (swap_64(nlist.n_desc, swap) & N_WEAK_REF)
-		ret = 'W';
 	else if (SYMBOL_TYPE == N_SECT)
 	{
-		if (!(ret = section_get_type(sections, swap_16(nlist.n_sect, swap))))
+		if (!(ret = section_get_type(sections, nlist.n_sect)))
 			ret = 'S';
 	}
 	else
 		ret = '?';
-	if (n_type & N_PEXT || !(n_type & N_EXT))
+	if (ret != '?' && !(n_type & N_EXT))
 		ret = ft_tolower(ret);
 	return (ret);
 }
