@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/25 15:50:56 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/31 11:39:27 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_offset(const char *ar_name)
 	return (ptr ? ft_atoi(ptr + 1) : 0);
 }
 
-static void	sort_rans(struct ranlib **rans, size_t n_entries, void *ptr)
+static void	sort_rans(struct ranlib **rans, void *ptr, size_t n_entries)
 {
 	size_t			i;
 	struct ranlib	tmp;
@@ -36,7 +36,7 @@ static void	sort_rans(struct ranlib **rans, size_t n_entries, void *ptr)
 			tmp = (*rans)[i];
 			(*rans)[i] = (*rans)[i + 1];
 			(*rans)[i + 1] = tmp;
-			i = 0;
+			i = -1;
 		}
 		++i;
 	}
@@ -79,11 +79,13 @@ void		nm_ar(t_nm *nm, void *ptr, const char *filename)
 	if (!rans)
 		return ;
 	fill_rans(&rans, header, n_entries);
-	sort_rans(&rans, n_entries, ptr);
+	sort_rans(&rans, ptr, n_entries);
 	i = -1;
 	while (++i < n_entries)
+	{
 		if (i == 0 || (i > 0 && rans[i - 1].ran_off != rans[i].ran_off)) {
 			nm_archive(nm, ptr + rans[i].ran_off, filename);
 		}
+	}
 	ft_memdel((void**)&rans);
 }
