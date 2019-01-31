@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/30 16:34:59 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/31 11:09:25 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		nm_64_bits(t_nm *nm, void *ptr, uint8_t swap)
 		lc = (void*)lc + swap_64(lc->cmdsize, swap);
 	}
 	get_symbols(nm, sym, ptr, swap);
-	print_symbol_table(nm->symbols, nm->format, nm->options);
+	print_symbol_table(nm->symbols, nm->format, nm->options, 0);
 	ft_bzero(nm->sections, (N_SECTION * sizeof(t_section)));
 	nm->section_ordinal = 0;
 	symbol_clear(&nm->symbols);

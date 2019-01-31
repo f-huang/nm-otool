@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/30 15:32:39 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/01/31 11:10:22 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
 void				clear(t_nm *nm);
 void				print_symbol_table(t_symbol *symbols,\
-						enum e_nm_format format, int options);
+						enum e_nm_format format, int options, int is_32_bits);
 
 void				nm_32_bits(t_nm *nm, void *ptr, uint8_t swap);
 void				nm_64_bits(t_nm *nm, void *ptr, uint8_t swap);
