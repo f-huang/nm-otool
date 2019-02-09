@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/01/26 16:57:24 by fhuang           ###   ########.fr        #
+#    Updated: 2019/02/01 11:46:57 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,9 @@ NMSRC		:=	main.c					\
 				file_32_bits.c			\
 				file_64_bits.c			\
 				ar.c					\
-				fat_32.c					\
-				fat_64.c					\
+				fat_32.c				\
+				fat_64.c				\
+				is_ptr_in_file.c		\
 				is_symbol_skipped.c		\
 				print_symbol_table.c	\
 				set_options.c			\

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 18:12:23 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/05 14:52:47 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	sort_rans(struct ranlib **rans, size_t n_entries, void *ptr)
 			tmp = (*rans)[i];
 			(*rans)[i] = (*rans)[i + 1];
 			(*rans)[i + 1] = tmp;
-			i = 0;
+			i = -1;
 		}
 		++i;
 	}
@@ -66,7 +66,7 @@ static void	otool_archive(t_otool *otool, struct ar_hdr *header,\
 
 	subname = header->ar_name + sizeof(struct ar_hdr);
 	ft_printf("%s(%s):\n", filename, subname);
-	ft_otool(otool, subname + get_offset(header->ar_name), NULL);
+	ft_otool(otool, subname + get_offset(header->ar_name), 0, NULL);
 }
 
 void		otool_ar(t_otool *otool, void *ptr, const char *filename)

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/31 16:50:15 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/01 11:41:24 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		main(int ac, char **av)
 			if (print)
 				ft_printf("\n%s:\n", !av[i] ? DEFAULT_FILE : av[i]);
 			error = handle_file(&nm, !av[i] ? DEFAULT_FILE : av[i],\
-				(int (*)(void*, void*, const char*))ft_nm);
+				(int (*)(void*, void*, size_t, const char*))ft_nm);
 			if (!av[i] || !av[++i])
 				break ;
 		}

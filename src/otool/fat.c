@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 19:07:04 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/06 02:09:29 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/01 11:43:39 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	otool_fat(t_otool *otool, void *ptr)
 		if (fat64[i].cputype == CPU_TYPE_X86_64)
 		{
 			ptr2 += fat64[i].offset;
-			ft_otool(otool, ptr2, NULL);
+			ft_otool(otool, ptr2, 0, NULL);
 		}
 		++i;
 	}

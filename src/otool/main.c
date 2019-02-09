@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/31 17:01:05 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/01 11:43:22 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		main(int ac, char **av)
 		while (av[i])
 		{
 			error = handle_file(&otool, av[i],\
-				(int (*)(void*, void*, const char*))ft_otool);
+				(int (*)(void*, void*, size_t, const char*))ft_otool);
 			if (!av[i] || !av[++i])
 				break ;
 		}

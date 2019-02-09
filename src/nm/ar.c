@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/31 11:39:27 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/01 11:42:58 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ static void	fill_rans(struct ranlib **rans, struct ar_hdr *header,\
 		get_offset(header->ar_name) + sizeof(int);
 	i = -1;
 	while (++i < n_entries)
+	{
+		// ft_printf("%s\n", ((struct ar_hdr*)(ptr + (*rans)[i].ran_off))->ar_name + sizeof(struct ar_hdr));
 		ft_memcpy((*rans) + i, ranlib + i, sizeof(struct ranlib));
+		// ft_printf("%p\n", ranlib + i);
+	}
 }
 
 static void	nm_archive(t_nm *nm, struct ar_hdr *header, const char *filename)
@@ -61,7 +65,8 @@ static void	nm_archive(t_nm *nm, struct ar_hdr *header, const char *filename)
 
 	subname = header->ar_name + sizeof(struct ar_hdr);
 	ft_printf("\n%s(%s):\n", filename, subname);
-	ft_nm(nm, subname + get_offset(header->ar_name), subname);
+	// (void)filename;
+	ft_nm(nm, subname + get_offset(header->ar_name), 0, subname);
 }
 
 void		nm_ar(t_nm *nm, void *ptr, const char *filename)

@@ -14,6 +14,8 @@ IFS=';'
 dirs=(\
 "/bin;"\
 "/usr/bin;"\
+"/usr/lib/;"\
+# "../nm-tests/hell"
 )
 
 #############
@@ -54,7 +56,7 @@ function check_otool() {
 rm -r $results_file
 for dir in $dirs; do
 	for file in $dir/*; do
-		check_nm $file
-		# check_otool $file
+		# check_nm $file
+		check_otool $file
 	done
 done

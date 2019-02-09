@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_file.c                                      :+:      :+:    :+:   */
+/*   is_ptr_in_file.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/17 12:18:24 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/01 11:35:11 by fhuang           ###   ########.fr       */
+/*   Created: 2019/02/01 11:39:09 by fhuang            #+#    #+#             */
+/*   Updated: 2019/02/01 11:53:19 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include "ft_nm_otool.h"
+#include "libft.h"
 
-int		handle_file(void *env, const char *filename,\
-	int (*f)(void*, void *, size_t, const char*))
+int		is_ptr_in_file(void *end_of_file, void* ptr)
 {
-	void	*ptr;
-	size_t	size;
-	int		fd;
-	int		error;
-
-	ptr = NULL;
-	error = 0;
-	size = 0;
-	if ((fd = open_and_map(filename, &ptr, &size)) != -1)
+	if (ptr > end_of_file)
 	{
-		error = f(env, ptr, size, filename) == 0 ? 1 : 0;
-		close_and_unmap(ptr, size, fd);
+		ft_putendl_fd("File is corrupted.", 2);
+		return (0);
 	}
-	else
-		error = 1;
-	return (error);
+	return (1);
 }

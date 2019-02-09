@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/31 11:10:22 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/01 11:40:54 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,13 @@ typedef struct		s_nm
 {
 	int					options;
 	enum e_nm_format	format;
+	void				*end_of_file;
 	uint8_t				section_ordinal;
 	t_section			sections[N_SECTION];
 	t_symbol			*symbols;
 }					t_nm;
 
-int					ft_nm(t_nm *nm, void *ptr, const char *filename);
+int					ft_nm(t_nm *nm, void *ptr, size_t file_size, const char *filename);
 int					set_options(char **av, t_nm *nm, int *i);
 int					set_files(char **av, t_nm *nm, int ac, int i);
 void				clear(t_nm *nm);
@@ -172,5 +173,6 @@ int					symbol_cmp_name(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_value(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_r_name(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_r_value(t_symbol sym1, t_symbol sym2);
+int					is_ptr_in_file(void *end_of_file, void* ptr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/31 11:09:25 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/01 11:57:25 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	get_symbols(t_nm *nm, struct symtab_command *sym, void *ptr, uint8_t
 	j = swap_32(sym->nsyms, swap) - 1;
 	while (j >= 0)
 	{
+		if (!is_ptr_in_file(nm->end_of_file, nlist + j) || !is_ptr_in_file(nm->end_of_file, stringtable + swap_32(nlist[j].n_un.n_strx, swap)))
+			break ;
 		type = get_symbol_type(nm->sections, nlist[j], swap);
 		if (!is_symbol_skipped(nm->options, type) &&\
 			(new = (t_symbol*)ft_memalloc(sizeof(t_symbol))))
@@ -83,7 +85,7 @@ void		nm_64_bits(t_nm *nm, void *ptr, uint8_t swap)
 	sym = NULL;
 	lc = ptr + sizeof(struct mach_header_64);
 	i = -1;
-	while (++i < swap_64(header->ncmds, swap))
+	while (is_ptr_in_file(nm->end_of_file, lc) && ++i < swap_64(header->ncmds, swap))
 	{
 		if (swap_64(lc->cmd, swap) == LC_SYMTAB)
 			sym = (struct symtab_command *)lc;
@@ -92,7 +94,8 @@ void		nm_64_bits(t_nm *nm, void *ptr, uint8_t swap)
 				(struct segment_command_64 *)lc, swap);
 		lc = (void*)lc + swap_64(lc->cmdsize, swap);
 	}
-	get_symbols(nm, sym, ptr, swap);
+	if (sym)
+		get_symbols(nm, sym, ptr, swap);
 	print_symbol_table(nm->symbols, nm->format, nm->options, 0);
 	ft_bzero(nm->sections, (N_SECTION * sizeof(t_section)));
 	nm->section_ordinal = 0;

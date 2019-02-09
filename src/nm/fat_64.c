@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 19:07:04 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/30 15:37:46 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/01 11:43:11 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	parse_object(t_nm *nm, struct fat_header *header, uint64_t offset, c
 
 	ptr = header;
 	ptr += offset;
-	ft_nm(nm, ptr, filename);
+	ft_nm(nm, ptr, 0, filename);
 }
 
 
