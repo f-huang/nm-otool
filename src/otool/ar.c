@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/05 14:52:47 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/12 16:16:08 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@ static void	sort_rans(struct ranlib **rans, size_t n_entries, void *ptr)
 	i = 0;
 	while (i + 1 < n_entries)
 	{
-		if (ft_strcmp(\
-			((struct ar_hdr*)(ptr + (*rans)[i].ran_off))->ar_name +\
-			sizeof(struct ar_hdr),\
-			((struct ar_hdr*)(ptr + (*rans)[i + 1].ran_off))->ar_name +\
-			sizeof(struct ar_hdr)) > 0)
+		if (ptr + (*rans)[i].ran_off > ptr + (*rans)[i + 1].ran_off)
 		{
 			tmp = (*rans)[i];
 			(*rans)[i] = (*rans)[i + 1];

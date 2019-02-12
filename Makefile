@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/02/01 11:46:57 by fhuang           ###   ########.fr        #
+#    Updated: 2019/02/12 13:26:58 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,16 @@ BINDIR		:=	bin/
 INCDIR		:=	include/
 LIBFT		:=	libft/
 LIBDIR		:=	lib/
+
+SWAPDIR		:=	swap/
+SWAPOBJDIR	:=	$(OBJDIR)$(SWAPDIR)
 SRC			:=	close_and_unmap.c		\
-				handle_file.c		\
-				open_and_map.c
+				handle_file.c			\
+				open_and_map.c			\
+				get_cpuname.c			\
+				$(SWAPDIR)swap_16.c		\
+				$(SWAPDIR)swap_32.c		\
+				$(SWAPDIR)swap_64.c
 OBJ			:=	$(SRC:%.c=$(OBJDIR)%.o)
 INC			:=	-I./$(INCDIR) -I./$(LIBFT)$(INCDIR)
 LIBPATH		:=	-L./$(LIBFT)$(LIBDIR) -lft -lftprintf
@@ -56,7 +63,6 @@ NMOBJDIR	:=	$(OBJDIR)nm/
 ##### === Subdirectories ===
 SECTIONDIR	:=	section/
 SYMBOLDIR	:=	symbol/
-SWAPDIR	:=	swap/
 ##### ======================
 
 NMSRC		:=	main.c					\
@@ -74,9 +80,6 @@ NMSRC		:=	main.c					\
 				$(SECTIONDIR)add_64.c	\
 				$(SECTIONDIR)add_determine_type.c		\
 				$(SECTIONDIR)get_type.c	\
-				$(SWAPDIR)swap_16.c		\
-				$(SWAPDIR)swap_32.c		\
-				$(SWAPDIR)swap_64.c		\
 				$(SYMBOLDIR)add.c		\
 				$(SYMBOLDIR)clear.c		\
 				$(SYMBOLDIR)get_cmp_function.c
@@ -89,7 +92,8 @@ OTOOLDIR	:=	$(SRCDIR)otool/
 OTOOLOBJDIR	:=	$(OBJDIR)otool/
 OTOOLSRC	:=	main.c					\
 				ar.c					\
-				fat.c					\
+				fat_32.c				\
+				fat_64.c				\
 				ft_otool.c				\
 				file_32_bits.c			\
 				file_64_bits.c
@@ -106,10 +110,10 @@ $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
 
 $(CACHEF):
 	@test -d $(OBJDIR) || mkdir $(OBJDIR)
+	@test -d $(SWAPOBJDIR) || mkdir $(SWAPOBJDIR)
 	@test -d $(NMOBJDIR) || mkdir $(NMOBJDIR)
 	@test -d $(NMOBJDIR)$(SECTIONDIR) || mkdir $(NMOBJDIR)$(SECTIONDIR)
 	@test -d $(NMOBJDIR)$(SYMBOLDIR) || mkdir $(NMOBJDIR)$(SYMBOLDIR)
-	@test -d $(NMOBJDIR)$(SWAPDIR) || mkdir $(NMOBJDIR)$(SWAPDIR)
 	@test -d $(OTOOLOBJDIR) || mkdir $(OTOOLOBJDIR)
 	@test -d $(CACHEF) || touch $(CACHEF)
 

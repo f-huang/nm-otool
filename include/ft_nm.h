@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/01 11:40:54 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/12 10:37:29 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,6 @@ enum				e_nm_format
 	MH_NOT_32BITS = 32
 };
 
-typedef struct		s_cpu
-{
-	char			*cpuname;
-	uint32_t		cputype;
-}					t_cpu;
-
 typedef struct		s_symbol
 {
 	char				*name;
@@ -151,10 +145,6 @@ void				nm_64_bits(t_nm *nm, void *ptr, uint8_t swap);
 void				nm_ar(t_nm *nm, void *ptr, const char *filename);
 void				nm_fat_32(t_nm *nm, void *ptr, const char *filename, uint8_t swap);
 void				nm_fat_64(t_nm *nm, void *ptr, const char *filename, uint8_t swap);
-
-uint8_t				swap_16(uint8_t value, uint8_t swap);
-uint32_t			swap_32(uint32_t value, uint8_t swap);
-uint64_t			swap_64(uint64_t value, uint8_t swap);
 
 char				section_add_determine_type(const char *sectname);
 void				section_add_32(t_section *sections,\

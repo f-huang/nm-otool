@@ -6,11 +6,12 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 16:29:44 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/26 17:02:15 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/12 10:44:53 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mach-o/loader.h>
+#include "ft_swap.h"
 #include "libft.h"
 #include "ft_nm.h"
 
