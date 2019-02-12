@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/12 14:33:23 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/12 16:57:26 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	ft_otool(t_otool *otool, void *ptr, size_t file_size, const char *filename)
 
 	magic = *((int*)ptr);
 	swap = (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM || magic == FAT_CIGAM_64);
-	(void)file_size;
+	if (file_size)
+		otool->end_of_file = ptr + file_size;
 	if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64)
 	{
 		otool_64_bits(otool, ptr, filename, swap);

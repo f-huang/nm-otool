@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/12 14:33:28 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/12 16:28:38 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 typedef struct	s_otool
 {
 	int			options;
+	void		*end_of_file;
 }				t_otool;
 
 int				ft_otool(t_otool *otool, void *ptr, size_t file_size, const char *filename);
