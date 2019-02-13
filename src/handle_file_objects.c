@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 12:48:10 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 18:38:32 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 20:00:40 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,22 @@ int	handle_file_objects(t_nm_otool *nm_otool, void *ptr, const char *filename)
 	uint8_t		swap;
 
 	magic = *((int*)ptr);
-	swap = (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM || magic == FAT_CIGAM_64);
-	if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64) {
+	swap = (magic == MH_CIGAM || magic == MH_CIGAM_64
+			|| magic == FAT_CIGAM || magic == FAT_CIGAM_64);
+	if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64)
 		nm_otool->func_ptr[FUNC_OBJ_64](nm_otool, ptr, filename, swap);
-	}
-	else if (magic == MH_MAGIC || magic == MH_CIGAM) {
+	else if (magic == MH_MAGIC || magic == MH_CIGAM)
 		nm_otool->func_ptr[FUNC_OBJ_32](nm_otool, ptr, filename, swap);
-	}
-	else if (magic == FAT_MAGIC || magic == FAT_CIGAM) {
+	else if (magic == FAT_MAGIC || magic == FAT_CIGAM)
 		nm_otool->func_ptr[FUNC_FAT_32](nm_otool, ptr, filename, swap);
-	}
-	else if (magic == FAT_MAGIC_64 || magic == FAT_CIGAM_64) {
+	else if (magic == FAT_MAGIC_64 || magic == FAT_CIGAM_64)
 		nm_otool->func_ptr[FUNC_FAT_64](nm_otool, ptr, filename, swap);
-	}
-	else if (ft_strnequ(((struct ar_hdr*)ptr)->ar_name, ARMAG, SARMAG)) {
+	else if (ft_strnequ(((struct ar_hdr*)ptr)->ar_name, ARMAG, SARMAG))
 		nm_otool->func_ptr[FUNC_AR](nm_otool, ptr, filename, swap);
-	}
 	else
 	{
-		ft_printf_fd(2, "%s: %s: The file was not recognized as a valid object file.\n",\
+		ft_printf_fd(2,
+			"%s: %s: The file was not recognized as a valid object file.\n",
 			nm_otool->command == NM ? "nm" : "otool", filename);
 		return (0);
 	}

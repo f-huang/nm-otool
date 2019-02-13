@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 13:07:30 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 13:11:04 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 19:59:37 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 #include "libft.h"
 #include "ft_nm_otool.h"
 
-static void	handle_error(const char *file, int *fd, const void *ptr, const char *command)
+static void	handle_error(const char *file,
+							int *fd,
+							const void *ptr,
+							const char *command)
 {
 	struct stat	buf;
 	int			ret;
@@ -37,7 +40,10 @@ static void	handle_error(const char *file, int *fd, const void *ptr, const char 
 	*fd = -1;
 }
 
-int			open_and_map(const char *filename, void **ptr, size_t *size, enum e_command command)
+int			open_and_map(const char *filename,
+							void **ptr,
+							size_t *size,
+							enum e_command command)
 {
 	struct stat	buf;
 	int			fd;

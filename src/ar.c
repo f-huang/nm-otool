@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 15:12:41 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 20:03:10 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static int	get_offset(const char *ar_name)
 	return (ptr ? ft_atoi(ptr + 1) : 0);
 }
 
-
-static void	archive(t_nm_otool *nm_otool, struct ar_hdr *header, const char *filename)
+static void	archive(t_nm_otool *nm_otool,
+					struct ar_hdr *header,
+					const char *filename)
 {
 	char			*subname;
 
@@ -33,10 +34,12 @@ static void	archive(t_nm_otool *nm_otool, struct ar_hdr *header, const char *fil
 		ft_printf("\n%s(%s):\n", filename, subname);
 	else
 		ft_printf("%s(%s):\n", filename, subname);
-	handle_file_objects(nm_otool, subname + get_offset(header->ar_name), (void*)0);
+	handle_file_objects(nm_otool,
+						subname + get_offset(header->ar_name),
+						(void*)0);
 }
 
-static void		*pass_string_table(void *ptr, size_t n_entries)
+static void	*pass_string_table(void *ptr, size_t n_entries)
 {
 	char			*str;
 	size_t			i;
@@ -54,7 +57,7 @@ static void		*pass_string_table(void *ptr, size_t n_entries)
 	}
 	while (*str == 0)
 		str++;
-	return str;
+	return (str);
 }
 
 void		ar(t_nm_otool *nm_otool, void *ptr, const char *filename)
@@ -67,7 +70,8 @@ void		ar(t_nm_otool *nm_otool, void *ptr, const char *filename)
 	n_entries = *((int *)((void*)header + sizeof(struct ar_hdr)\
 		+ get_offset(header->ar_name)))\
 		/ sizeof(struct ranlib);
-	ptr = (void*)header + sizeof(struct ar_hdr) + get_offset(header->ar_name) + sizeof(int);
+	ptr = (void*)header + sizeof(struct ar_hdr)
+			+ get_offset(header->ar_name) + sizeof(int);
 	ptr = ptr + (n_entries * sizeof(struct ranlib)) + 4;
 	if (n_entries)
 		ptr = pass_string_table(ptr, n_entries);
