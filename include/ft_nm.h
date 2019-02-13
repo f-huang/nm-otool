@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 17:47:18 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 18:26:14 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <mach-o/loader.h>
 
 # include "ft_nm_otool.h"
+
 /*
 **	DESCRIPTION
 **		If an argument is an  archive,
@@ -53,7 +54,6 @@
 **		http://www.manpagez.com/man/5/ar/
 */
 
-
 /*
 **	OPTIONS
 **		 -n     Sort numerically rather than alphabetically.				√
@@ -88,7 +88,7 @@
 
 # define N_SECTION 3
 
-enum				e_nm_format
+enum			e_nm_format
 {
 	DECIMAL_64 = 10,
 	OCTAL_64 = 8,
@@ -98,66 +98,72 @@ enum				e_nm_format
 	HEXA_32 = -16
 };
 
-typedef struct		s_symbol
+typedef struct	s_symbol
 {
 	char				*name;
 	char				type;
 	uint64_t			value;
 	struct s_symbol		*next;
-}					t_symbol;
+}				t_symbol;
 
-typedef struct		s_section
+typedef struct	s_section
 {
 	uint8_t				index;
 	char				type;
-}					t_section;
+}				t_section;
 
-struct				s_nm_options
+struct			s_nm_options
 {
 	const char			c;
 	int					shift;
 };
 
-struct				s_nm_print
+struct			s_nm_print
 {
 	enum e_nm_format	format;
 	const char			*str1;
 	const char			*str2;
 };
 
-typedef struct		s_nm
+typedef struct	s_nm
 {
 	int					options;
 	enum e_nm_format	format;
 	uint8_t				section_ordinal;
 	t_section			sections[N_SECTION];
 	t_symbol			*symbols;
-}					t_nm;
+}				t_nm;
 
-int					set_options(char **av, t_nm *nm, int *i);
-void				print_symbol_table(t_symbol *symbols,\
-						enum e_nm_format format, int options);
+int				set_options(char **av, t_nm *nm, int *i);
+void			print_symbol_table(t_symbol *symbols,\
+					enum e_nm_format format, int options);
 
-void				nm_ar(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap);
-void				nm_32_bits(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap);
-void				nm_64_bits(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap);
+void			nm_ar(t_nm_otool *nm_otool,\
+					void *ptr, const char *filename, uint8_t swap);
+void			nm_32_bits(t_nm_otool *nm_otool,\
+					void *ptr, const char *filename, uint8_t swap);
+void			nm_64_bits(t_nm_otool *nm_otool,\
+					void *ptr, const char *filename, uint8_t swap);
 
-char				section_add_determine_type(const char *sectname);
-void				section_add_32(t_section *sections,\
-						uint8_t *section_ordinal, struct segment_command *seg, uint8_t swap);
-void				section_add_64(t_section *sections,\
+char			section_add_determine_type(const char *sectname);
+void			section_add_32(t_section *sections,\
+						uint8_t *section_ordinal,\
+						struct segment_command *seg, uint8_t swap);
+void			section_add_64(t_section *sections,\
 						uint8_t *section_ordinal,\
 						struct segment_command_64 *seg, uint8_t swap);
-char				section_get_type(t_section *sections, uint8_t index);
-int					is_symbol_skipped(int options, char type);
-void				symbol_add(t_symbol **symbols, t_symbol *new,\
-						int (*cmp)(t_symbol, t_symbol));
-void				symbol_clear(t_symbol **symbols);
+char			section_get_type(t_section *sections, uint8_t index);
+int				is_symbol_skipped(int options, char type);
+void			symbol_add(t_symbol **symbols, t_symbol *new,\
+					int (*cmp)(t_symbol, t_symbol));
+void			symbol_clear(t_symbol **symbols);
 
-int					(*get_cmp_function(int options))(t_symbol, t_symbol);
-int					symbol_cmp_name(t_symbol sym1, t_symbol sym2);
-int					symbol_cmp_value(t_symbol sym1, t_symbol sym2);
-int					symbol_cmp_r_name(t_symbol sym1, t_symbol sym2);
-int					symbol_cmp_r_value(t_symbol sym1, t_symbol sym2);
+typedef int		(*t_cmp_function)(t_symbol, t_symbol);
+t_cmp_function	get_cmp_function(int options);
+
+int				symbol_cmp_name(t_symbol sym1, t_symbol sym2);
+int				symbol_cmp_value(t_symbol sym1, t_symbol sym2);
+int				symbol_cmp_r_name(t_symbol sym1, t_symbol sym2);
+int				symbol_cmp_r_value(t_symbol sym1, t_symbol sym2);
 
 #endif
