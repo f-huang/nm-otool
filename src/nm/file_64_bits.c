@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 18:38:19 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 19:17:00 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "ft_swap.h"
 #include "ft_nm.h"
 #include "libft.h"
-
-#define SYMBOL_TYPE (n_type & N_TYPE)
 
 static char	get_symbol_type(t_section *sections, struct nlist_64 nlist, uint8_t swap)
 {
@@ -25,15 +23,15 @@ static char	get_symbol_type(t_section *sections, struct nlist_64 nlist, uint8_t 
 	n_type = nlist.n_type;
 	if (n_type & N_STAB)
 		ret = '-';
-	else if (SYMBOL_TYPE == N_ABS)
+	else if ((n_type & N_TYPE) == N_ABS)
 		ret = 'A';
-	else if (SYMBOL_TYPE == N_INDR)
+	else if ((n_type & N_TYPE) == N_INDR)
 		ret = 'I';
-	else if (SYMBOL_TYPE == N_UNDF && n_type & N_EXT && swap_64(nlist.n_value, swap))
+	else if ((n_type & N_TYPE) == N_UNDF && n_type & N_EXT && swap_64(nlist.n_value, swap))
 		ret = 'C';
-	else if (SYMBOL_TYPE == N_UNDF || SYMBOL_TYPE == N_PBUD)
+	else if ((n_type & N_TYPE) == N_UNDF || (n_type & N_TYPE) == N_PBUD)
 		ret = 'U';
-	else if (SYMBOL_TYPE == N_SECT)
+	else if ((n_type & N_TYPE) == N_SECT)
 	{
 		if (!(ret = section_get_type(sections, nlist.n_sect)))
 			ret = 'S';

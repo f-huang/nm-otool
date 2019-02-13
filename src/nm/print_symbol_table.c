@@ -6,14 +6,12 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/30 19:20:57 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 17:52:29 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 19:13:29 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mach-o/ldsyms.h>
 #include "libft.h"
 #include "ft_nm.h"
-
 
 static const char	*get_format_string(enum e_nm_format format,\
 	int is_undefined)
@@ -27,8 +25,9 @@ static const char	*get_format_string(enum e_nm_format format,\
 		{ OCTAL_32, "%08lo %c %s\n", "% 8c %c %s\n" }
 	};
 	int						i;
+
 	i = 0;
-	while (i < 6)
+	while (i <= N_FUNC_PTR)
 	{
 		if (format == print[i].format)
 			return (is_undefined ? print[i].str2 : print[i].str1);

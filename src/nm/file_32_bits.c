@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 18:38:10 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 19:16:33 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "ft_nm.h"
 #include "libft.h"
 
-#define SYMBOL_TYPE (n_type & N_TYPE)
-
-static char	get_symbol_type(t_section *sections, struct nlist nlist, uint8_t swap)
+static char	get_symbol_type(t_section *sections,
+							struct nlist nlist,
+							uint8_t swap)
 {
 	char					ret;
 	uint8_t				n_type;
@@ -25,15 +25,15 @@ static char	get_symbol_type(t_section *sections, struct nlist nlist, uint8_t swa
 	n_type = nlist.n_type;
 	if (n_type & N_STAB)
 		ret = '-';
-	else if (SYMBOL_TYPE == N_ABS)
+	else if ((n_type & N_TYPE) == N_ABS)
 		ret = 'A';
-	else if (SYMBOL_TYPE == N_INDR)
+	else if ((n_type & N_TYPE) == N_INDR)
 		ret = 'I';
-	else if (SYMBOL_TYPE == N_UNDF && n_type & N_EXT && swap_32(nlist.n_value, swap))
+	else if ((n_type & N_TYPE) == N_UNDF && n_type & N_EXT && swap_32(nlist.n_value, swap))
 		ret = 'C';
-	else if (SYMBOL_TYPE == N_UNDF || SYMBOL_TYPE == N_PBUD)
+	else if ((n_type & N_TYPE) == N_UNDF || (n_type & N_TYPE) == N_PBUD)
 		ret = 'U';
-	else if (SYMBOL_TYPE == N_SECT)
+	else if ((n_type & N_TYPE) == N_SECT)
 	{
 		if (!(ret = section_get_type(sections, nlist.n_sect)))
 			ret = 'S';
@@ -45,7 +45,10 @@ static char	get_symbol_type(t_section *sections, struct nlist nlist, uint8_t swa
 	return (ret);
 }
 
-static void	get_symbols(t_nm_otool *nm_otool, struct symtab_command *sym, void *ptr, uint8_t swap)
+static void	get_symbols(t_nm_otool *nm_otool,
+						struct symtab_command *sym,
+						void *ptr,
+						uint8_t swap)
 {
 	t_symbol				*new;
 	int64_t					j;
@@ -75,7 +78,10 @@ static void	get_symbols(t_nm_otool *nm_otool, struct symtab_command *sym, void *
 	}
 }
 
-void		nm_32_bits(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap)
+void		nm_32_bits(t_nm_otool *nm_otool,
+						void *ptr,
+						const char *filename,
+						uint8_t swap)
 {
 	struct mach_header		*header;
 	struct load_command		*lc;

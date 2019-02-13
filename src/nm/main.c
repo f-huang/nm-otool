@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 17:42:56 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 19:10:33 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include "ft_nm.h"
 #include "ft_nm_otool.h"
-
 
 static int	init_struct(t_nm_otool *nm_otool)
 {
@@ -30,18 +29,15 @@ static int	init_struct(t_nm_otool *nm_otool)
 	return (1);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_nm_otool	nm_otool;
 	int			i;
 	int			print;
 	int			error;
 
-	i = 0;
 	error = 0;
-	if (!init_struct(&nm_otool))
-		return (1);
-	if (!set_options(av, nm_otool.env, &i))
+	if (!init_struct(&nm_otool) || !set_options(av, nm_otool.env, &i))
 		return (EXIT_FAILURE);
 	if (((t_nm*)nm_otool.env)->options & OPTION_H)
 		ft_putendl_fd("usage: nm [-"NM_OPTIONS"] [file ...]", 2);
