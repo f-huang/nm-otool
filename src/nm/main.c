@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 15:44:26 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 17:42:56 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	init_struct(t_nm_otool *nm_otool)
 	ft_bzero(nm_otool, sizeof(t_nm_otool));
 	if (!(nm_otool->env = (t_nm*)ft_memalloc(sizeof(t_nm))))
 		return (0);
-	((t_nm*)nm_otool->env)->format = HEXA;
+	((t_nm*)nm_otool->env)->format = HEXA_64;
 	nm_otool->func_ptr[FUNC_OBJ_64] = &nm_64_bits;
 	nm_otool->func_ptr[FUNC_OBJ_32] = &nm_32_bits;
 	nm_otool->func_ptr[FUNC_FAT_32] = &fat_32;

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 15:46:32 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 17:47:18 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 **		            x      The value shall be written in hexadecimal (default).
 */
 
-# define NM_OPTIONS "nruUxjth"
+# define NM_OPTIONS "nruUjth"
 # define NM_OPTION_FORMATS "dox"
 
 # define OPTION_N  (1 << 0)
@@ -90,10 +90,12 @@
 
 enum				e_nm_format
 {
-	DECIMAL = 10,
-	OCTAL = 8,
-	HEXA = 16,
-	MH_NOT_32BITS = 32
+	DECIMAL_64 = 10,
+	OCTAL_64 = 8,
+	HEXA_64 = 16,
+	DECIMAL_32 = -10,
+	OCTAL_32 = -8,
+	HEXA_32 = -16
 };
 
 typedef struct		s_symbol
@@ -134,7 +136,7 @@ typedef struct		s_nm
 
 int					set_options(char **av, t_nm *nm, int *i);
 void				print_symbol_table(t_symbol *symbols,\
-						enum e_nm_format format, int options, int is_32_bits);
+						enum e_nm_format format, int options);
 
 void				nm_ar(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap);
 void				nm_32_bits(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap);

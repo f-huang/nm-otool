@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 14:55:56 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 17:51:22 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		nm_32_bits(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t 
 	}
 	if (sym)
 		get_symbols(nm_otool, sym, ptr, swap);
-	print_symbol_table(((t_nm*)nm_otool->env)->symbols, ((t_nm*)nm_otool->env)->format, ((t_nm*)nm_otool->env)->options, 1);
+	print_symbol_table(((t_nm*)nm_otool->env)->symbols, ((t_nm*)nm_otool->env)->format, ((t_nm*)nm_otool->env)->options);
 	ft_bzero(((t_nm*)nm_otool->env)->sections, (N_SECTION * sizeof(t_section)));
 	((t_nm*)nm_otool->env)->section_ordinal = 0;
 	symbol_clear(&((t_nm*)nm_otool->env)->symbols);

@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 11:31:12 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 13:22:52 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 17:48:26 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ static void	print_error(t_nm nm, const char *str, int error)
 static void	set_option_format(t_nm *nm, char c)
 {
 	if (c == 'd')
-		nm->format = DECIMAL;
+		nm->format = DECIMAL_64;
 	else if (c == 'o')
-		nm->format = OCTAL;
+		nm->format = OCTAL_64;
 	else
-		nm->format = HEXA;
+		nm->format = HEXA_64;
 }
 
 static int	is_option_found(char *av, t_nm *nm, int *error)

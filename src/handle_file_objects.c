@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 12:48:10 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 16:14:53 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 17:55:41 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ int	handle_file_objects(t_nm_otool *nm_otool, void *ptr, const char *filename)
 	swap = (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM || magic == FAT_CIGAM_64);
 	if (magic == MH_MAGIC_64 || magic == MH_CIGAM_64) {
 		// ft_putendl("obj 64");
+		if (((t_nm*)nm_otool->env)->format < 0)
+			((t_nm*)nm_otool->env)->format *= -1;
+		// ft_putnbrendl(((t_nm*)nm_otool->env)->format);
 		nm_otool->func_ptr[FUNC_OBJ_64](nm_otool, ptr, filename, swap);
 	}
 	else if (magic == MH_MAGIC || magic == MH_CIGAM) {
 		// ft_putendl("obj 32");
+		if (((t_nm*)nm_otool->env)->format > 0)
+			((t_nm*)nm_otool->env)->format *= -1;
 		nm_otool->func_ptr[FUNC_OBJ_32](nm_otool, ptr, filename, swap);
 	}
 	else if (magic == FAT_MAGIC || magic == FAT_CIGAM) {
