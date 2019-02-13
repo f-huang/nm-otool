@@ -6,10 +6,12 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/12 16:16:08 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 11:47:36 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+#include <unistd.h>
 #include <mach-o/ranlib.h>
 #include <ar.h>
 #include "libft.h"
@@ -23,37 +25,6 @@ static int	get_offset(const char *ar_name)
 	return (ptr ? ft_atoi(ptr + 1) : 0);
 }
 
-static void	sort_rans(struct ranlib **rans, size_t n_entries, void *ptr)
-{
-	size_t			i;
-	struct ranlib	tmp;
-
-	i = 0;
-	while (i + 1 < n_entries)
-	{
-		if (ptr + (*rans)[i].ran_off > ptr + (*rans)[i + 1].ran_off)
-		{
-			tmp = (*rans)[i];
-			(*rans)[i] = (*rans)[i + 1];
-			(*rans)[i + 1] = tmp;
-			i = -1;
-		}
-		++i;
-	}
-}
-
-static void	fill_rans(struct ranlib **rans, struct ar_hdr *header,\
-	size_t n_entries)
-{
-	struct ranlib	*ranlib;
-	size_t			i;
-
-	ranlib = (void*)header + sizeof(struct ar_hdr) +\
-		get_offset(header->ar_name) + sizeof(int);
-	i = -1;
-	while (++i < n_entries)
-		ft_memcpy((*rans) + i, ranlib + i, sizeof(struct ranlib));
-}
 
 static void	otool_archive(t_otool *otool, struct ar_hdr *header,\
 	const char *filename)
@@ -65,27 +36,47 @@ static void	otool_archive(t_otool *otool, struct ar_hdr *header,\
 	ft_otool(otool, subname + get_offset(header->ar_name), 0, NULL);
 }
 
+void		*pass_string_table(void *ptr, size_t n_entries)
+{
+	char			*str;
+	size_t			i;
+	size_t			j;
+
+	i = 0;
+	str = (char*)ptr;
+	while (i < n_entries)
+	{
+		j = 0;
+		while (str[j])
+			++j;
+		str = str + j + 1;
+		++i;
+	}
+	return str + 1;
+}
+
 void		otool_ar(t_otool *otool, void *ptr, const char *filename)
 {
-	struct ranlib	*rans;
 	struct ar_hdr	*header;
-	size_t			i;
 	size_t			n_entries;
+	size_t			size;
 
 	header = (struct ar_hdr*)(ptr + SARMAG);
 	n_entries = *((int *)((void*)header + sizeof(struct ar_hdr)\
 		+ get_offset(header->ar_name)))\
 		/ sizeof(struct ranlib);
-	rans = (struct ranlib*)ft_memalloc(sizeof(struct ranlib) *\
-		(n_entries + 1));
-	if (!rans)
-		return ;
+	ptr = (void*)header + sizeof(struct ar_hdr) + get_offset(header->ar_name) + sizeof(int);
+	ptr = ptr + (n_entries * sizeof(struct ranlib)) + 4;
+	if (n_entries)
+		ptr = pass_string_table(ptr, n_entries);
 	ft_printf("Archive : %s\n", filename);
-	fill_rans(&rans, header, n_entries);
-	sort_rans(&rans, n_entries, ptr);
-	i = -1;
-	while (++i < n_entries)
-		if (i == 0 || (i > 0 && rans[i - 1].ran_off != rans[i].ran_off))
-			otool_archive(otool, ptr + rans[i].ran_off, filename);
-	ft_memdel((void**)&rans);
+	while (ptr < otool->end_of_file)
+	{
+		header = (struct ar_hdr*)ptr;
+		if (!ft_strnequ(header->ar_name, "#1/", 3))
+			break ;
+		size = ft_atoi(header->ar_size);
+		otool_archive(otool, header, filename);
+		ptr = ptr + sizeof(struct ar_hdr) + size;
+	}
 }
