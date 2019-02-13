@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 08:40:36 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/12 10:37:29 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 15:46:32 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stddef.h>
 # include <mach-o/loader.h>
 
+# include "ft_nm_otool.h"
 /*
 **	DESCRIPTION
 **		If an argument is an  archive,
@@ -52,7 +53,6 @@
 **		http://www.manpagez.com/man/5/ar/
 */
 
-# define PROGRAM_NAME "nm"
 
 /*
 **	OPTIONS
@@ -127,24 +127,18 @@ typedef struct		s_nm
 {
 	int					options;
 	enum e_nm_format	format;
-	void				*end_of_file;
 	uint8_t				section_ordinal;
 	t_section			sections[N_SECTION];
 	t_symbol			*symbols;
 }					t_nm;
 
-int					ft_nm(t_nm *nm, void *ptr, size_t file_size, const char *filename);
 int					set_options(char **av, t_nm *nm, int *i);
-int					set_files(char **av, t_nm *nm, int ac, int i);
-void				clear(t_nm *nm);
 void				print_symbol_table(t_symbol *symbols,\
 						enum e_nm_format format, int options, int is_32_bits);
 
-void				nm_32_bits(t_nm *nm, void *ptr, uint8_t swap);
-void				nm_64_bits(t_nm *nm, void *ptr, uint8_t swap);
-void				nm_ar(t_nm *nm, void *ptr, const char *filename);
-void				nm_fat_32(t_nm *nm, void *ptr, const char *filename, uint8_t swap);
-void				nm_fat_64(t_nm *nm, void *ptr, const char *filename, uint8_t swap);
+void				nm_ar(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap);
+void				nm_32_bits(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap);
+void				nm_64_bits(t_nm_otool *nm_otool, void *ptr, const char *filename, uint8_t swap);
 
 char				section_add_determine_type(const char *sectname);
 void				section_add_32(t_section *sections,\
@@ -163,6 +157,5 @@ int					symbol_cmp_name(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_value(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_r_name(t_symbol sym1, t_symbol sym2);
 int					symbol_cmp_r_value(t_symbol sym1, t_symbol sym2);
-int					is_ptr_in_file(void *end_of_file, void* ptr);
 
 #endif

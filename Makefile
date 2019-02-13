@@ -6,7 +6,7 @@
 #    By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/16 23:26:49 by fhuang            #+#    #+#              #
-#    Updated: 2019/02/12 13:26:58 by fhuang           ###   ########.fr        #
+#    Updated: 2019/02/13 15:46:56 by fhuang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,13 @@ SWAPDIR		:=	swap/
 SWAPOBJDIR	:=	$(OBJDIR)$(SWAPDIR)
 SRC			:=	close_and_unmap.c		\
 				handle_file.c			\
+				handle_file_objects.c			\
 				open_and_map.c			\
 				get_cpuname.c			\
+				is_ptr_in_file.c		\
+				ar.c					\
+				fat_32.c				\
+				fat_64.c				\
 				$(SWAPDIR)swap_16.c		\
 				$(SWAPDIR)swap_32.c		\
 				$(SWAPDIR)swap_64.c
@@ -66,13 +71,9 @@ SYMBOLDIR	:=	symbol/
 ##### ======================
 
 NMSRC		:=	main.c					\
-				ft_nm.c					\
 				file_32_bits.c			\
 				file_64_bits.c			\
 				ar.c					\
-				fat_32.c				\
-				fat_64.c				\
-				is_ptr_in_file.c		\
 				is_symbol_skipped.c		\
 				print_symbol_table.c	\
 				set_options.c			\
@@ -92,9 +93,6 @@ OTOOLDIR	:=	$(SRCDIR)otool/
 OTOOLOBJDIR	:=	$(OBJDIR)otool/
 OTOOLSRC	:=	main.c					\
 				ar.c					\
-				fat_32.c				\
-				fat_64.c				\
-				ft_otool.c				\
 				file_32_bits.c			\
 				file_64_bits.c
 OTOOLOBJ	:=	$(OTOOLSRC:%.c=$(OTOOLOBJDIR)%.o)
@@ -103,6 +101,7 @@ OTOOLOBJ	:=	$(OTOOLSRC:%.c=$(OTOOLOBJDIR)%.o)
 .PHONY: all libft norme clean fclean re nm otool
 
 all: libft nm otool
+
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(CACHEF)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)

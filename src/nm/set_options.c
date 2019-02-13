@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/27 11:31:12 by fhuang            #+#    #+#             */
-/*   Updated: 2018/03/26 19:08:39 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 13:22:52 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #define ERROR_OPTION_FORMAT_NOT_FOUND 12
 
 #define N_OPTIONS 8
+#define PROGRAM_NAME "nm"
 
 static int	set_option_in_struct(t_nm *nm, const char c)
 {
