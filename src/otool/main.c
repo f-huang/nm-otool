@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 15:50:21 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 18:46:18 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 int		main(int ac, char **av)
 {
 	t_nm_otool	nm_otool;
-	int		i;
-	int		error;
+	int			i;
+	int			error;
 
 	i = 1;
 	error = 0;
