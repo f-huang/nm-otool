@@ -6,13 +6,13 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 16:05:46 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/26 16:57:00 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 18:30:11 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 
-uint8_t swap_16(uint8_t value, uint8_t swap)
+uint8_t	swap_16(uint8_t value, uint8_t swap)
 {
 	return (swap ? (value >> 8) | (value << 8) : value);
 }

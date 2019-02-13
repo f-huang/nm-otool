@@ -6,13 +6,13 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 16:05:46 by fhuang            #+#    #+#             */
-/*   Updated: 2019/01/26 16:56:10 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 18:30:17 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 
-uint32_t swap_32(uint32_t value, uint8_t swap)
+uint32_t	swap_32(uint32_t value, uint8_t swap)
 {
 	return (swap ? (value >> 24) |
 		((value & 0xFF0000) >> 8) |
