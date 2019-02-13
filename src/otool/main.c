@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 18:46:18 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 20:21:35 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		main(int ac, char **av)
 	{
 		while (av[i])
 		{
-			error = handle_file(&nm_otool, av[i]);
+			error = handle_file(&nm_otool, av[i], 0);
 			if (!av[i] || !av[++i])
 				break ;
 		}

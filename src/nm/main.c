@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 19:10:33 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 20:31:58 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static int	init_struct(t_nm_otool *nm_otool)
 int			main(int ac, char **av)
 {
 	t_nm_otool	nm_otool;
-	int			i;
 	int			print;
+	int			i;
 	int			error;
 
 	error = 0;
@@ -46,9 +46,9 @@ int			main(int ac, char **av)
 		print = (int)(ac - i > 1);
 		while (1)
 		{
-			if (print)
-				ft_printf("\n%s:\n", !av[i] ? DEFAULT_FILE : av[i]);
-			error = handle_file(&nm_otool, !av[i] ? DEFAULT_FILE : av[i]);
+			error = handle_file(&nm_otool,
+								!av[i] ? DEFAULT_FILE : av[i],
+								print);
 			if (!av[i] || !av[++i])
 				break ;
 		}

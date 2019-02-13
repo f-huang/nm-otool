@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:18:50 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 18:29:33 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 20:20:03 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int				is_ptr_in_file(const void *end_of_file, const void *ptr);
 int				open_and_map(const char *filename,\
 					void **ptr, size_t *size, enum e_command command);
 void			close_and_unmap(void *ptr, size_t size, int fd);
-int				handle_file(t_nm_otool *nm_otool, const char *filename);
+int				handle_file(t_nm_otool *nm_otool, const char *filename,
+					int print_filename);
 int				handle_file_objects(t_nm_otool *nm_otool,\
 					void *ptr, const char *filename);
 
