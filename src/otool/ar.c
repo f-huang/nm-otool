@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 11:47:36 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/13 12:14:00 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void		*pass_string_table(void *ptr, size_t n_entries)
 		str = str + j + 1;
 		++i;
 	}
-	return str + 1;
+	while (*str == 0)
+		str++;
+	return str;
 }
 
 void		otool_ar(t_otool *otool, void *ptr, const char *filename)
