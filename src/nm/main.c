@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 20:31:58 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/15 10:47:22 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	init_struct(t_nm_otool *nm_otool)
 	nm_otool->func_ptr[FUNC_OBJ_32] = &nm_32_bits;
 	nm_otool->func_ptr[FUNC_FAT_32] = &fat_32;
 	nm_otool->func_ptr[FUNC_FAT_64] = &fat_64;
-	nm_otool->func_ptr[FUNC_AR] = &nm_ar;
+	nm_otool->func_ptr[FUNC_AR] = &ar;
 	return (1);
 }
 

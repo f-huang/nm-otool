@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 12:18:50 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 20:20:03 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/15 10:49:40 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int				handle_file_objects(t_nm_otool *nm_otool,\
 					void *ptr, const char *filename);
 
 const char		*get_cpuname(uint32_t cputype);
-void			ar(t_nm_otool *nm_otool, void *ptr, const char *filename);
+void			ar(t_nm_otool *nm_otool,\
+					void *ptr, const char *filename, uint8_t swap);
 void			fat_32(t_nm_otool *nm_otool,\
 					void *ptr, const char *filename, uint8_t swap);
 void			fat_64(t_nm_otool *nm_otool,\

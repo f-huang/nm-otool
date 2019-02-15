@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 17:49:06 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 20:03:10 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/15 10:49:28 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ static void	*pass_string_table(void *ptr, size_t n_entries)
 	return (str);
 }
 
-void		ar(t_nm_otool *nm_otool, void *ptr, const char *filename)
+void		ar(t_nm_otool *nm_otool,
+				void *ptr,
+				const char *filename,
+				uint8_t swap)
 {
 	struct ar_hdr	*header;
 	size_t			n_entries;
@@ -75,6 +78,8 @@ void		ar(t_nm_otool *nm_otool, void *ptr, const char *filename)
 	ptr = ptr + (n_entries * sizeof(struct ranlib)) + 4;
 	if (n_entries)
 		ptr = pass_string_table(ptr, n_entries);
+	if (nm_otool->command == OTOOL)
+		ft_printf("Archive : %s\n", filename);
 	while (ptr < nm_otool->end_of_file)
 	{
 		header = (struct ar_hdr*)ptr;
@@ -84,4 +89,5 @@ void		ar(t_nm_otool *nm_otool, void *ptr, const char *filename)
 		archive(nm_otool, header, filename);
 		ptr = ptr + sizeof(struct ar_hdr) + size;
 	}
+	(void)swap;
 }

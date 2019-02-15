@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 09:48:35 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 20:21:35 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/15 10:47:16 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		main(int ac, char **av)
 	nm_otool.func_ptr[FUNC_OBJ_32] = &otool_32_bits;
 	nm_otool.func_ptr[FUNC_FAT_32] = &fat_32;
 	nm_otool.func_ptr[FUNC_FAT_64] = &fat_64;
-	nm_otool.func_ptr[FUNC_AR] = &otool_ar;
+	nm_otool.func_ptr[FUNC_AR] = &ar;
 	if (ac > 1)
 	{
 		while (av[i])
