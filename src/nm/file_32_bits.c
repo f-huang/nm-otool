@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 16:34:40 by fhuang            #+#    #+#             */
-/*   Updated: 2019/02/13 19:58:00 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/15 10:51:28 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void		nm_32_bits(t_nm_otool *nm_otool,
 						uint8_t swap)
 {
 	struct symtab_command	*sym;
+	size_t					n_section;
 
 	loop_through_commands(nm_otool, ptr, &sym, swap);
 	get_symbols(nm_otool, sym, ptr, swap);
@@ -136,7 +137,8 @@ void		nm_32_bits(t_nm_otool *nm_otool,
 	print_symbol_table(((t_nm*)nm_otool->env)->symbols,
 						((t_nm*)nm_otool->env)->format,
 						((t_nm*)nm_otool->env)->options);
-	ft_bzero(((t_nm*)nm_otool->env)->sections, (N_SECTION * sizeof(t_section)));
+	n_section = N_SECTION;
+	ft_bzero(((t_nm*)nm_otool->env)->sections, (n_section * sizeof(t_section)));
 	((t_nm*)nm_otool->env)->section_ordinal = 0;
 	symbol_clear(&((t_nm*)nm_otool->env)->symbols);
 	(void)filename;
