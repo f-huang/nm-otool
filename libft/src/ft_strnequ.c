@@ -6,12 +6,12 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 17:38:23 by fhuang            #+#    #+#             */
-/*   Updated: 2017/11/04 15:30:55 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/15 15:24:49 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
 	size_t		i;
@@ -25,5 +25,5 @@ int		ft_strnequ(char const *s1, char const *s2, size_t n)
 			return (0);
 		n--;
 	}
-	return (!(n > 0));
+	return (n < 0);
 }

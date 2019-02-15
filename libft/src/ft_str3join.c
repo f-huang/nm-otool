@@ -6,7 +6,7 @@
 /*   By: fhuang <fhuang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/05 15:50:46 by fhuang            #+#    #+#             */
-/*   Updated: 2017/11/07 20:50:18 by fhuang           ###   ########.fr       */
+/*   Updated: 2019/02/15 15:25:27 by fhuang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_str3join(const char *s1, const char *s2, const char *s3)
 {
-	char    *ret;
+	char	*ret;
 
 	if (!s1 || !s2 || !s3)
 		return (NULL);
