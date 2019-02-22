@@ -25,5 +25,5 @@ int		ft_strnequ(char const *s1, char const *s2, size_t n)
 			return (0);
 		n--;
 	}
-	return (n < 0);
+	return (!(n > 0));
 }
